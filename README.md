@@ -83,6 +83,10 @@ autogame.call('QuitGame')                             # go back to the main menu
 ## Known issues
 * Calling "QuitGame" from post match stats screen results in looping background music.
 
+## In the future
+* Implement the rest of the less important game settings
+* Maybe make the winner and players' scores available after the end of match. Any further analysis would not be in the scope of this project.
+
 ## Dependencies
 * Microsoft Detours - https://github.com/Microsoft/Detours
 * rpclib (with a minor change) - https://github.com/FLWL/rpclib
