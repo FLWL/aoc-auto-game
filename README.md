@@ -38,6 +38,7 @@ autogame.call('QuitGame')                             # go back to the main menu
 |  **StartGame** |  |  | Start the game with previously specified settings. |
 |  **GetGameInProgress** |  |  | Whether a game is ongoing. Returns a boolean value. |
 |  **QuitGame** |  |  | Exits the match. |
+|  **GetApiVersion** |  |  | Returns a string with the aoc-auto-game API version, for example "1.1" |
 |   |  |  |  |
 |  **Game Settings** | **Param 1** | **Param2** | **Description** |
 |  **SetGameType** | **int Type** |  |  |
