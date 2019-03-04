@@ -2,10 +2,10 @@
 An API for programmatically starting Age of Empires II: The Conquerors matches with specified settings.
 
 ## Features
-* Changing any game setting available in the lobby programmatically
-* Launching games with those settings
-* Waiting until the match has concluded
-* Exiting from a match
+* Change any game setting available in the in-game lobby programmatically
+* Launch games with those settings
+* Wait until the match has concluded
+* Exit from a match
 
 ## Usage
 1. Compile the DLL with dependencies listed at the bottom of this page
