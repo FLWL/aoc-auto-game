@@ -31,6 +31,7 @@ void CreateRpcServer()
 	srv->bind("StartGame", &RpcFuncs::StartGame);
 	srv->bind("GetGameInProgress", &RpcFuncs::GetGameInProgress);
 	srv->bind("QuitGame", &RpcFuncs::QuitGame);
+	srv->bind("GetApiVersion", &RpcFuncs::GetApiVersion);
 
 	srv->bind("SetGameType", &RpcFuncs::SetGameType);
 	srv->bind("SetGameScenarioName", &RpcFuncs::SetGameScenarioName);

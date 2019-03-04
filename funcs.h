@@ -1,6 +1,8 @@
 #pragma once
 #include <sstream>
 
+const std::string API_VERSION = "1.1";
+
 namespace GameStructs
 {
 	struct Game
@@ -307,5 +309,10 @@ namespace RpcFuncs
 		bool LaunchResult = GameFuncs::TribeMPSetupScreen::LaunchGame(DummyMPSetupScreen);
 		delete DummyMPSetupScreen;
 		return LaunchResult;
+	}
+
+	const std::string GetApiVersion()
+	{
+		return API_VERSION;
 	}
 }
