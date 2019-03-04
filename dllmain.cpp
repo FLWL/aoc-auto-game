@@ -26,21 +26,34 @@ void LibraryThread()
 void CreateRpcServer()
 {
 	srv = new rpc::server("127.0.0.1", 64720);
+
+	srv->bind("ResetGameSettings", &RpcFuncs::ResetGameSettings);
+	srv->bind("StartGame", &RpcFuncs::StartGame);
+	srv->bind("GetGameInProgress", &RpcFuncs::GetGameInProgress);
+	srv->bind("QuitGame", &RpcFuncs::QuitGame);
+
+	srv->bind("SetGameType", &RpcFuncs::SetGameType);
+	srv->bind("SetGameScenarioName", &RpcFuncs::SetGameScenarioName);
+	srv->bind("SetGameMapType", &RpcFuncs::SetGameMapType);
+	srv->bind("SetGameMapSize", &RpcFuncs::SetGameMapSize);
+	srv->bind("SetGameDifficulty", &RpcFuncs::SetGameDifficulty);
+	srv->bind("SetGameStartingResources", &RpcFuncs::SetGameStartingResources);
+	srv->bind("SetGamePopulationLimit", &RpcFuncs::SetGamePopulationLimit);
+	srv->bind("SetGameRevealMap", &RpcFuncs::SetGameRevealMap);
+	srv->bind("SetGameStartingAge", &RpcFuncs::SetGameStartingAge);
+	srv->bind("SetGameVictoryType", &RpcFuncs::SetGameVictoryType);
+	//srv->bind("SetGameTeamsTogether", &RpcFuncs::SetGameTeamsTogether);
+	srv->bind("SetGameLockTeams", &RpcFuncs::SetGameLockTeams);
+	srv->bind("SetGameAllTechs", &RpcFuncs::SetGameAllTechs);
+	srv->bind("SetGameRecord", &RpcFuncs::SetGameRecord);
+
 	srv->bind("SetPlayerHuman", &RpcFuncs::SetPlayerHuman);
 	srv->bind("SetPlayerComputer", &RpcFuncs::SetPlayerComputer);
+	srv->bind("SetPlayerClosed", &RpcFuncs::SetPlayerClosed);
+	srv->bind("SetPlayerCivilization", &RpcFuncs::SetPlayerCivilization);
+	srv->bind("SetPlayerColor", &RpcFuncs::SetPlayerColor);
 	srv->bind("SetPlayerTeam", &RpcFuncs::SetPlayerTeam);
-	srv->bind("LockTeams", &RpcFuncs::LockTeams);
-	
-	srv->bind("SetGameType", &RpcFuncs::SetGameType);
-	srv->bind("SetMultiplayerGame", &RpcFuncs::SetMultiplayerGame);
-	srv->bind("SetSinglePlayerGame", &RpcFuncs::SetSinglePlayerGame);
-	srv->bind("SetMapType", &RpcFuncs::SetMapType);
-	srv->bind("SetMapSize", &RpcFuncs::SetMapSize);
-
-	srv->bind("SetScenarioName", &RpcFuncs::SetScenarioName);
-
-	srv->bind("IsScenarioGame", &RpcFuncs::IsScenarioGame);
-	srv->bind("LaunchGame", &RpcFuncs::LaunchGame);
+	//srv->bind("GetPlayerGameOutcome", &RpcFuncs::GetPlayerGameOutcome);
 }
 
 // Hook into the game thread
