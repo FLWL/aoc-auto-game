@@ -1,6 +1,12 @@
 # aoc-auto-game
 An API for programmatically starting Age of Empires II: The Conquerors matches with specified settings.
 
+## Features
+* Changing any game setting available in the lobby programmatically
+* Launching games with those settings
+* Waiting until the match has concluded
+* Exiting from a match
+
 ## Usage
 1. Compile the DLL with dependencies listed at the bottom of this page
 2. Load the DLL into age2_x1.exe process
