@@ -79,6 +79,9 @@ autogame.call('QuitGame')                             # go back to the main menu
 |  **SetPlayerTeam** | **int PlayerNumber** | **int Team** |  |
 |   | 1-8 | 0 - No team<br/>1-4 Teams |  |
 
+## Known issues
+* Calling "QuitGame" from post match stats screen results in looping background music.
+
 ## Dependencies
 * Microsoft Detours - https://github.com/Microsoft/Detours
 * rpclib (with a minor change) - https://github.com/FLWL/rpclib
