@@ -9,7 +9,7 @@ An API for programmatically starting Age of Empires II: The Conquerors matches w
 
 ## Usage
 1. Compile the DLL with dependencies listed at the bottom of this page
-2. Load the DLL into age2_x1.exe process
+2. Load the DLL into age2_x1 process
 3. Connect with a msgpack-RPC client on address 127.0.0.1:64720
 4. Issue commands to the game to automate starting games
 
@@ -43,8 +43,10 @@ autogame.call('QuitGame')                             # go back to the main menu
 |  **ResetGameSettings** |  |  | Reset all game settings and players to their valid default state. |
 |  **StartGame** |  |  | Start the game with previously specified settings. |
 |  **GetGameInProgress** |  |  | Whether a game is ongoing. Returns a boolean value. |
+|  **GetWinningPlayer** |  |  | Returns the first winning player number as an integer. |
+|  **GetWinningPlayers** |  |  | Returns all winning players as a list. |
 |  **QuitGame** |  |  | Exits the match. |
-|  **GetApiVersion** |  |  | Returns a string with the aoc-auto-game API version, for example "1.1" |
+|  **GetApiVersion** |  |  | Returns the aoc-auto-game API version as a float. |
 |  **SetGameType** | **int Type** |  |  |
 |   | 0 - Random Map<br/>1 - Regicide<br/>2 - Death Match<br/>3 - Scenario<br/>5 - King of the Hill<br/>6 - Wonder Race<br/>7 - Defend the Wonder<br/>8 - Turbo Random Map |  |  |
 |  **SetGameScenarioName** | **string ScenarioName** |  | Scenario map name. Only used if GameType is set to 3. |
@@ -81,6 +83,10 @@ autogame.call('QuitGame')                             # go back to the main menu
 |   | 1-8 | 1-8 |  |
 |  **SetPlayerTeam** | **int PlayerNumber** | **int Team** |  |
 |   | 1-8 | 0 - No team<br/>1-4 Teams |  |
+|  **GetPlayerExists** | **int PlayerNumber** |  | Returns whether the player slot is taken or not. |
+|   | 1-8 |  |  |
+|  **GetPlayerAlive** | **int PlayerNumber** |  | Returns whether the player is alive in the game or not. |
+|   | 1-8 |  |  |
 
 ## Known issues
 * Calling "QuitGame" from post match stats screen results in looping background music.
