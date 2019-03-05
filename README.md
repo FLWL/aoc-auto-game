@@ -38,15 +38,13 @@ autogame.call('QuitGame')                             # go back to the main menu
 ```
 
 ## API
-|  **Main Functions** | **Param 1** | **Param 2** | **Description** |
+|  **Function** | **Param 1** | **Param 2** | **Description** |
 | :--- | :--- | :--- | :--- |
 |  **ResetGameSettings** |  |  | Reset all game settings and players to their valid default state. |
 |  **StartGame** |  |  | Start the game with previously specified settings. |
 |  **GetGameInProgress** |  |  | Whether a game is ongoing. Returns a boolean value. |
 |  **QuitGame** |  |  | Exits the match. |
 |  **GetApiVersion** |  |  | Returns a string with the aoc-auto-game API version, for example "1.1" |
-|   |  |  |  |
-|  **Game Settings** | **Param 1** | **Param2** | **Description** |
 |  **SetGameType** | **int Type** |  |  |
 |   | 0 - Random Map<br/>1 - Regicide<br/>2 - Death Match<br/>3 - Scenario<br/>5 - King of the Hill<br/>6 - Wonder Race<br/>7 - Defend the Wonder<br/>8 - Turbo Random Map |  |  |
 |  **SetGameScenarioName** | **string ScenarioName** |  | Scenario map name. Only used if GameType is set to 3. |
@@ -71,8 +69,6 @@ autogame.call('QuitGame')                             # go back to the main menu
 |  **SetGameLockTeams** | **bool LockTeams** |  |  |
 |  **SetGameAllTechs** | **bool AllTechs** |  |  |
 |  **SetGameRecord** | **bool Record** |  |  |
-|   |  |  |  |
-|  **Player Settings** | **Param 1** | **Param 2** | **Description** |
 |  **SetPlayerHuman** | **int PlayerNumber** |  |  |
 |   | 1-8 |  |  |
 |  **SetPlayerComputer** | **int PlayerNumber** | **string AIFile** |  |
