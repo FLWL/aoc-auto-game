@@ -30,6 +30,8 @@ void CreateRpcServer()
 	srv->bind("ResetGameSettings", &RpcFuncs::ResetGameSettings);
 	srv->bind("StartGame", &RpcFuncs::StartGame);
 	srv->bind("GetGameInProgress", &RpcFuncs::GetGameInProgress);
+	srv->bind("GetWinningPlayer", &RpcFuncs::GetWinningPlayer);
+	srv->bind("GetWinningPlayers", &RpcFuncs::GetWinningPlayers);
 	srv->bind("QuitGame", &RpcFuncs::QuitGame);
 	srv->bind("GetApiVersion", &RpcFuncs::GetApiVersion);
 
@@ -54,7 +56,8 @@ void CreateRpcServer()
 	srv->bind("SetPlayerCivilization", &RpcFuncs::SetPlayerCivilization);
 	srv->bind("SetPlayerColor", &RpcFuncs::SetPlayerColor);
 	srv->bind("SetPlayerTeam", &RpcFuncs::SetPlayerTeam);
-	//srv->bind("GetPlayerGameOutcome", &RpcFuncs::GetPlayerGameOutcome);
+	srv->bind("GetPlayerExists", &RpcFuncs::GetPlayerExists);
+	srv->bind("GetPlayerAlive", &RpcFuncs::GetPlayerAlive);
 }
 
 // Hook into the game thread

@@ -1,14 +1,17 @@
 #pragma once
+#include <list>
 #include <sstream>
 
-const std::string API_VERSION = "1.1";
+const float API_VERSION = 1.11f;
 
 namespace GameStructs
 {
 	struct Game
 	{
-		char unk[480];
+		char unk1[480];
 		int prog_mode;
+		char unk2[3769];
+		char resigned[9];
 	};
 	struct CommunicationsHandler;
 
@@ -23,16 +26,6 @@ namespace GameStructs
 		ME_VIEWONLY = 0x6,
 	};
 
-	/*enum GameOutcome
-	{
-		LOST = 0x0,
-		WON = 0x1,
-		RESIGNED = 0x2,
-		DROPPED_PLAYER = 0x3,
-		SAVE_AND_EXIT = 0x4,
-		UNDETERMINED = 0x5,
-	};*/
-
 	Game* GamePointer = *(Game**)0x7912A0;
 	CommunicationsHandler* CommPointer = *(CommunicationsHandler**)0x791200;
 }
@@ -44,7 +37,6 @@ namespace GameFuncs
 		void(__thiscall* SetPlayerHumanity)(GameStructs::CommunicationsHandler* This, int PlayerIndex, int Humanity) = (void(__thiscall*)(GameStructs::CommunicationsHandler*, int, int))0x5D9680;
 		
 		GameStructs::PlayerHumanity(__thiscall* GetPlayerHumanity)(GameStructs::CommunicationsHandler* This, int PlayerIndex) = (GameStructs::PlayerHumanity(__thiscall*)(GameStructs::CommunicationsHandler*, int))0x5D9650;
-		//GameStructs::GameOutcome(__thiscall* GetGameOutcomeForPlayer)(GameStructs::CommunicationsHandler* This, int PlayerIndex) = (GameStructs::GameOutcome(__thiscall*)(GameStructs::CommunicationsHandler*, int))0x5DF840;
 	}
 
 	namespace TribeMPSetupScreen
@@ -120,7 +112,7 @@ namespace RpcFuncs
 	{
 		GameFuncs::BaseGame::SetMultiplayerGame(GameStructs::GamePointer, MultiPlayer);
 	}
-
+	
 	void SetGameType(int GameType)
 	{
 		GameFuncs::TribeGame::SetGameType(GameStructs::GamePointer, GameType);
@@ -223,10 +215,41 @@ namespace RpcFuncs
 		GameFuncs::BaseGame::SetPlayerTeam(GameStructs::GamePointer, PlayerNumber - 1, Team + 1);
 	}
 
-	/*int GetPlayerGameOutcome(int PlayerNumber)
+	bool GetPlayerExists(int PlayerNum)
 	{
-		return GameFuncs::CommHandler::GetGameOutcomeForPlayer(GameStructs::CommPointer, PlayerNumber);
-	}*/
+		GameStructs::PlayerHumanity Humanity = GameFuncs::CommHandler::GetPlayerHumanity(GameStructs::CommPointer, PlayerNum);
+		
+		return Humanity > GameStructs::PlayerHumanity::ME_CLOSED;
+	}
+
+	bool GetPlayerAlive(int PlayerNum)
+	{
+		return GetPlayerExists(PlayerNum) && !GameStructs::GamePointer->resigned[PlayerNum];
+	}
+
+	int GetWinningPlayer()
+	{
+		for (int i = 1; i <= 8; i++)
+		{
+			if (GetPlayerAlive(i))
+				return i;
+		}
+
+		return 0;
+	}
+
+	std::list<int> GetWinningPlayers()
+	{
+		std::list<int> WinningPlayers;
+
+		for (int i = 1; i <= 8; i++)
+		{
+			if (GetPlayerAlive(i))
+				WinningPlayers.push_back(i);
+		}
+
+		return WinningPlayers;
+	}
 
 	// General funcs
 	void ResetGameSettings()
@@ -311,7 +334,7 @@ namespace RpcFuncs
 		return LaunchResult;
 	}
 
-	const std::string GetApiVersion()
+	const float GetApiVersion()
 	{
 		return API_VERSION;
 	}
