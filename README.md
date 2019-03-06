@@ -2,9 +2,12 @@
 An API for programmatically starting Age of Empires II: The Conquerors matches with specified settings.
 
 ## Features
+* msgpack-rpc based API that is callable from many languages, including Python, Java and C++
 * Change any game setting available in the in-game lobby programmatically
-* Launch games with those settings
-* Wait until the match has concluded
+* Allow a single-player match to run even after minimizing the game
+* Launch games with desired settings
+* Determine when a match ends
+* Determine the winning players
 * Exit from a match
 
 ## Usage
@@ -37,6 +40,11 @@ winner = autogame.call('GetWinningPlayer')
 print("Game finished, winner: " + str(winner))
 autogame.call('QuitGame')                             # go back to the main menu
 ```
+## Notes
+
+* If including a human player, it is recommended to put them into player slot 1.
+* When including many players, it is preferred to use the player slots consecutively and avoid holes.
+* The default settings is a standard 1v1 matchup between a human player in slot 1 and a default AI player in slot 2, on Arabia.
 
 ## API
 |  **Function** | **Param 1** | **Param 2** | **Description** |
@@ -95,7 +103,6 @@ autogame.call('QuitGame')                             # go back to the main menu
 
 ## In the future
 * Implement the rest of the less important game settings
-* Maybe make the winner and players' scores available after the end of match. Any further analysis would not be in the scope of this project.
 
 ## Dependencies
 * Microsoft Detours - https://github.com/Microsoft/Detours
