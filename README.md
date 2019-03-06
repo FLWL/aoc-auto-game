@@ -16,8 +16,8 @@ An API for programmatically starting Age of Empires II: The Conquerors matches w
 3. Connect with a msgpack-RPC client on address 127.0.0.1:64720
 4. Issue commands to the game to automate starting games
 
-## Example client (Python)
-Using the ```msgpack-rpc-python``` package.
+## Python example
+Using the ```msgpack-rpc-python``` package. Let's start a game on an all-visible random map. We'll have custom AIs "Barbarian" and "AT_Empire" facing off against each other in player slots 1 and 2 respectively.
 ```
 import msgpackrpc
 import time
@@ -40,6 +40,36 @@ winner = autogame.call('GetWinningPlayer')
 print("Game finished, winner: " + str(winner))
 autogame.call('QuitGame')                             # go back to the main menu
 ```
+## Java example
+Using the ```msgpack-rpc``` from Maven. We're starting an all-visible default map with 2 default AIs playing against each other.
+```
+import org.msgpack.rpc.Client;
+
+public class Main
+{
+    public static void main(String[] args) throws Exception
+    {
+        Client autogame = new Client("127.0.0.1", 64720);
+        autogame.callApply("ResetGameSettings", new Object[]{});
+        autogame.callApply("SetGameRevealMap", new Object[]{2});
+
+        autogame.callApply("SetPlayerComputer", new Object[]{1, ""});
+        autogame.callApply("SetPlayerComputer", new Object[]{2, ""});
+
+        autogame.callApply("StartGame", new Object[]{});
+
+        while (autogame.callApply("GetGameInProgress", new Object[]{}).asBooleanValue().getBoolean())
+        {
+            System.out.println("Game is running...");
+            Thread.sleep(1000);
+        }
+
+        int winner = autogame.callApply("GetWinningPlayer", new Object[]{}).asIntegerValue().getInt();
+        System.out.println("Game finished, winner: " + winner);
+    }
+}
+```
+
 ## Notes
 
 * If including a human player, it is recommended to put them into player slot 1.
