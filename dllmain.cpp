@@ -1,25 +1,31 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
+#include <iostream>
 #include <detours.h>
 #include "rpc/server.h"
 
 // Vars
+FILE *DebugConsoleRedirect;
 HMODULE CachedHModule;
 rpc::server* srv;
 
 // Func defs
+void EnableDebugConsole();
+void DisableDebugConsole();
 void LibraryThread();
 void CreateRpcServer();
-void HookGameThread();
-void UnhookGameThread();
-int __fastcall GameThreadHook(void* This, void* Unused);
+void HookGame();
+void UnhookGame();
 #include "funcs.h"
+
+int __fastcall GameThreadHook(GameStructs::Game* This, void* Unused);
+int __fastcall GameFocusHook(GameStructs::Game* This, void* Unused, void* wnd, unsigned int msg, unsigned int wparam, int lparam);
 
 // Function that gets executed in a thread once our library has been loaded into the game
 void LibraryThread()
 {
 	CreateRpcServer();
-	HookGameThread();
+	HookGame();
 }
 
 // Set up a server that listens for RPCs
@@ -45,10 +51,11 @@ void CreateRpcServer()
 	srv->bind("SetGameRevealMap", &RpcFuncs::SetGameRevealMap);
 	srv->bind("SetGameStartingAge", &RpcFuncs::SetGameStartingAge);
 	srv->bind("SetGameVictoryType", &RpcFuncs::SetGameVictoryType);
-	//srv->bind("SetGameTeamsTogether", &RpcFuncs::SetGameTeamsTogether);
+	srv->bind("SetGameTeamsTogether", &RpcFuncs::SetGameTeamsTogether);
 	srv->bind("SetGameLockTeams", &RpcFuncs::SetGameLockTeams);
 	srv->bind("SetGameAllTechs", &RpcFuncs::SetGameAllTechs);
-	srv->bind("SetGameRecord", &RpcFuncs::SetGameRecord);
+	srv->bind("SetGameRecorded", &RpcFuncs::SetGameRecorded);
+	srv->bind("SetGameRunUnfocused", &RpcFuncs::SetGameRunUnfocused);
 
 	srv->bind("SetPlayerHuman", &RpcFuncs::SetPlayerHuman);
 	srv->bind("SetPlayerComputer", &RpcFuncs::SetPlayerComputer);
@@ -61,24 +68,39 @@ void CreateRpcServer()
 }
 
 // Hook into the game thread
-void HookGameThread()
+void HookGame()
 {
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
 	DetourAttach(&(PVOID&)GameFuncs::TribeGame::HandleIdle, GameThreadHook);
+	DetourAttach(&(PVOID&)GameFuncs::BaseGame::HandleActivate, GameFocusHook);
 	DetourTransactionCommit();
 }
 
 // Remove the game thread hook
-void UnhookGameThread()
+void UnhookGame()
 {
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
 	DetourDetach(&(PVOID&)GameFuncs::TribeGame::HandleIdle, GameThreadHook);
+	DetourDetach(&(PVOID&)GameFuncs::BaseGame::HandleActivate, GameFocusHook);
 	DetourTransactionCommit();
 }
 
-int __fastcall GameThreadHook(void* This, void* Unused)
+void EnableDebugConsole()
+{
+	AllocConsole();
+	freopen_s(&DebugConsoleRedirect, "CONOUT$", "w", stdout);
+	std::cout << "Debug console initialized." << std::endl;
+}
+
+void DisableDebugConsole()
+{
+	fclose(DebugConsoleRedirect);
+	FreeConsole();
+}
+
+int __fastcall GameThreadHook(GameStructs::Game* This, void* Unused)
 {
 	int ReturnValue = GameFuncs::TribeGame::HandleIdle(This);
 
@@ -105,11 +127,19 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		}
 		case DLL_PROCESS_DETACH:
 		{
-			UnhookGameThread();
+			UnhookGame();
 			if (srv) srv->stop();
 			break;
 		}
 	}
 
 	return TRUE;
+}
+
+int __fastcall GameFocusHook(GameStructs::Game* This, void* Unused, void* wnd, unsigned int msg, unsigned int wparam, int lparam)
+{
+	if (RunGameUnfocused && wparam == 0)
+		wparam = 1;
+
+	return GameFuncs::BaseGame::HandleActivate(This, wnd, msg, wparam, lparam);
 }

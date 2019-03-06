@@ -2,15 +2,19 @@
 #include <list>
 #include <sstream>
 
-const float API_VERSION = 1.11f;
+const float API_VERSION = 1.12f;
+
+bool RunGameUnfocused = true;
 
 namespace GameStructs
 {
 	struct Game
 	{
-		char unk1[480];
+		char unk1[44];
+		HWND* prog_window;
+		char unk2[432];
 		int prog_mode;
-		char unk2[3769];
+		char unk3[3769];
 		char resigned[9];
 	};
 	struct CommunicationsHandler;
@@ -61,6 +65,8 @@ namespace GameFuncs
 		
 		void(__thiscall* SetNumberPlayers)(GameStructs::Game* This, int NumberPlayers) = (void(__thiscall*)(GameStructs::Game*, int))0x5EB260;
 
+		int(__thiscall* HandleActivate)(GameStructs::Game* This, void* wnd, unsigned int msg, unsigned int wparam, int lparam) = (int(__thiscall*)(GameStructs::Game*, void*, unsigned int, unsigned int, int))0x5E8830;
+
 		// Player funcs
 		void(__thiscall* SetPlayerTeam)(GameStructs::Game* This, int PlayerNum, char Team) = (void(__thiscall*)(GameStructs::Game*, int, char))0x5EB300;
 	}
@@ -77,7 +83,8 @@ namespace GameFuncs
 		
 		// Game funcs
 		void(__thiscall* SetGameType)(GameStructs::Game* This, int GameType) = (void(__thiscall*)(GameStructs::Game*, int))0x445AE0;
-		
+		bool(__thiscall* ScenarioGame)(GameStructs::Game* This) = (bool(__thiscall*)(GameStructs::Game*))0x4484A0;
+
 		void(__thiscall* SetMapType)(GameStructs::Game* This, int MapType) = (void(__thiscall*)(GameStructs::Game*, int))0x445650;
 		
 		void(__thiscall* SetMapSize)(GameStructs::Game* This, int MapSize) = (void(__thiscall*)(GameStructs::Game*, int))0x4454F0;
@@ -93,6 +100,7 @@ namespace GameFuncs
 		void(__thiscall* SetVictoryType)(GameStructs::Game* This, int VictoryTypeIn, int AmountIn) = (void(__thiscall*)(GameStructs::Game*, int, int))0x445860;
 		
 		void(__thiscall* SetRandomizePositions)(GameStructs::Game* This, char RandomizePositions) = (void(__thiscall*)(GameStructs::Game*, char))0x445A90;
+		int(__thiscall* GetRandomizePositions)(GameStructs::Game* This) = (int(__thiscall*)(GameStructs::Game*))0x4459E0;
 		
 		void(__thiscall* SetFullTechTree)(GameStructs::Game* This, int FullTechTree) = (void(__thiscall*)(GameStructs::Game*, int))0x445AA0;
 		
@@ -112,10 +120,28 @@ namespace RpcFuncs
 	{
 		GameFuncs::BaseGame::SetMultiplayerGame(GameStructs::GamePointer, MultiPlayer);
 	}
+
+	void SetGameTeamsTogether(bool TeamsTogether)
+	{
+		// Teams must be together in scenario maps right now, because the particular
+		// scenario team randomization function requires an UI element
+		if (GameFuncs::TribeGame::ScenarioGame(GameStructs::GamePointer))
+		{
+			TeamsTogether = true;
+		}
+
+		GameFuncs::TribeGame::SetRandomizePositions(GameStructs::GamePointer, !TeamsTogether);
+	}
 	
 	void SetGameType(int GameType)
 	{
 		GameFuncs::TribeGame::SetGameType(GameStructs::GamePointer, GameType);
+
+		// No support for randomizing positions in scenario maps right now
+		if (GameFuncs::TribeGame::ScenarioGame(GameStructs::GamePointer))
+		{
+			SetGameTeamsTogether(true);
+		}
 	}
 
 	void SetGameScenarioName(const std::string& ScenarioName)
@@ -163,11 +189,6 @@ namespace RpcFuncs
 		GameFuncs::TribeGame::SetVictoryType(GameStructs::GamePointer, VictoryType, VictoryValue);
 	}
 
-	void SetGameTeamsTogether(bool TeamsTogether)
-	{
-		GameFuncs::TribeGame::SetRandomizePositions(GameStructs::GamePointer, !TeamsTogether);
-	}
-
 	void SetGameLockTeams(bool LockTeams)
 	{
 		GameFuncs::BaseGame::GameTeamsLocked(GameStructs::GamePointer, LockTeams);
@@ -178,9 +199,14 @@ namespace RpcFuncs
 		GameFuncs::TribeGame::SetFullTechTree(GameStructs::GamePointer, AllTechs);
 	}
 
-	void SetGameRecord(bool Record)
+	void SetGameRecorded(bool Record)
 	{
 		GameFuncs::BaseGame::SetRecordGame(GameStructs::GamePointer, Record);
+	}
+
+	void SetGameRunUnfocused(bool RunUnfocused)
+	{
+		RunGameUnfocused = RunUnfocused;
 	}
 
 	// Player funcs
@@ -264,12 +290,12 @@ namespace RpcFuncs
 		SetGameStartingResources(0);
 		SetGamePopulationLimit(200);
 		SetGameRevealMap(0);
-		SetGameStartingAge(0);
+		SetGameStartingAge(2);
 		SetGameVictoryType(0, 0);
 		SetGameTeamsTogether(true);
 		SetGameLockTeams(false);
 		SetGameAllTechs(false);
-		SetGameRecord(false);
+		SetGameRecorded(false);
 
 		// Reset players' properties
 		SetPlayerHuman(1);
@@ -317,7 +343,7 @@ namespace RpcFuncs
 	{
 		if (GetGameInProgress() || GetGameOver() || GetGameStatsScreen())
 			QuitGame();
-
+		
 		int NumPlayers = 0;
 		for (int i = 1; i <= 8; i++)
 		{
