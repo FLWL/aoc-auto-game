@@ -31,9 +31,10 @@ autogame.call('StartGame')                            # start the match
 
 while autogame.call('GetGameInProgress'):             # wait until the game has finished
   print("Game is running...")
-  time.sleep(0.5)
+  time.sleep(1.0)
 
-print("Game finished")
+winner = autogame.call('GetWinningPlayer')
+print("Game finished, winner: " + str(winner))
 autogame.call('QuitGame')                             # go back to the main menu
 ```
 
