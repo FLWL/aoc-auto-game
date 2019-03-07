@@ -6,7 +6,7 @@ from ctypes import windll
 
 # this script launches an aoc instance and loads the aoc-auto-game dll
 # note that this works on 32-bit python only
-dll_path = b'../Release/aoc-auto-game.dll'
+dll_path = b'C:/Shared/AoE/aoc-auto-game/Release/aoc-auto-game.dll'         # change this
 aoc_name = "age2_x1.exe"
 aoc_path = os.getenv('APPDATA') + "/Microsoft Games/Age of Empires ii/Age2_x1/" + aoc_name
 
