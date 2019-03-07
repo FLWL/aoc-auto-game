@@ -5,7 +5,7 @@ An API for programmatically starting Age of Empires II: The Conquerors matches w
 * Direct C++ API (library exports)
 * msgpack-rpc based API that is callable from many languages, including Python, Java and C++
 * Change any game setting available in the in-game lobby programmatically
-* Run games faster than real-time (hours long matches can be played in minutes) (experimental)
+* Run games faster than real-time (hours long matches can be played in minutes)
 * Allow a single-player match to run even after minimizing the game
 * Launch games with desired settings
 * Determine when a match ends
@@ -104,7 +104,7 @@ public class Main
 |  **SetGameScenarioName** | **string ScenarioName** |  | Scenario map name. Only used if GameType is set to 3. |
 |   | "test_scenario" |  |  |
 |  **SetGameMapType** | **int MapType** |  | Sets the location of the random map. |
-|   | 9 - Arabia<br/>10 - Archipelago<br/>11 - Baltic<br/>12 - Black forest<br/>13 - Coastal<br/>14 - Continental<br/>15 - Crater Lake<br/>16 - Fortress<br/>17 - Gold Rush<br/>18 - Highland<br/>19 - Islands<br/>20 - Mediterranean<br/>21 - Migration<br/>22 - Rivers<br/>23 - Team Islands<br/>24 - Random Map<br/>25 - Scandinavia<br/>26 - Mongolia<br/>27 - Yucatan<br/>28 - Salt marsh<br/>29 - Arena<br/>31 - Oasis<br/>32 - Ghost Lake<br/>33 - Nomad<br/>34 - Iberia<br/>35 - Britain<br/>36 - Mideast<br/>37 - Texas<br/>38 - Italy<br/>39 - Central America<br/>40 - France<br/>41 - Norse Lands<br/>42 - Sea of Japan (East Sea)<br/>43 - Byzantium<br/>45 - Random Land Map<br/>47 - Random Real World Map<br/>48 - Blind Random<br/>49 - Conventional Random Map |  |  |
+|   | 9 - Arabia<br/>10 - Archipelago<br/>11 - Baltic<br/>12 - Black Forest<br/>13 - Coastal<br/>14 - Continental<br/>15 - Crater Lake<br/>16 - Fortress<br/>17 - Gold Rush<br/>18 - Highland<br/>19 - Islands<br/>20 - Mediterranean<br/>21 - Migration<br/>22 - Rivers<br/>23 - Team Islands<br/>24 - Random Map<br/>25 - Scandinavia<br/>26 - Mongolia<br/>27 - Yucatan<br/>28 - Salt marsh<br/>29 - Arena<br/>31 - Oasis<br/>32 - Ghost Lake<br/>33 - Nomad<br/>34 - Iberia<br/>35 - Britain<br/>36 - Mideast<br/>37 - Texas<br/>38 - Italy<br/>39 - Central America<br/>40 - France<br/>41 - Norse Lands<br/>42 - Sea of Japan (East Sea)<br/>43 - Byzantium<br/>45 - Random Land Map<br/>47 - Random Real World Map<br/>48 - Blind Random<br/>49 - Conventional Random Map |  |  |
 |  **SetGameMapSize** | **int MapSize** |  | Random map size. |
 |   | 0 - Tiny<br/>1 - Small<br/>2 - Medium<br/>3 - Normal<br/>4 - Large<br/>5 - Giant |  |  |
 |  **SetGameDifficulty** | **int Difficulty** |  | Difficulty of the game. |
