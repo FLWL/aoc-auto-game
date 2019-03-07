@@ -41,6 +41,7 @@ void CreateRpcServer()
 	srv->bind("QuitGame", &RpcFuncs::QuitGame);
 	srv->bind("GetApiVersion", &RpcFuncs::GetApiVersion);
 	srv->bind("SetRunUnfocused", &RpcFuncs::SetRunUnfocused);
+	srv->bind("SetRunFullSpeed", &RpcFuncs::SetRunFullSpeed);
 
 	srv->bind("SetGameType", &RpcFuncs::SetGameType);
 	srv->bind("SetGameScenarioName", &RpcFuncs::SetGameScenarioName);
@@ -100,19 +101,6 @@ void DisableDebugConsole()
 	FreeConsole();
 }
 
-int __fastcall GameThreadHook(GameStructs::Game* This, void* Unused)
-{
-	int ReturnValue = GameFuncs::TribeGame::_HandleIdle(This);
-
-	// Poll the RPC server for work, from the game thread
-	if (srv)
-	{
-		srv->poll();
-	}
-	
-	return ReturnValue;
-}
-
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
 	switch (ul_reason_for_call)
@@ -134,6 +122,19 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 	}
 
 	return TRUE;
+}
+
+int __fastcall GameThreadHook(GameStructs::Game* This, void* Unused)
+{
+	int ReturnValue = GameFuncs::TribeGame::_HandleIdle(This);
+
+	// Poll the RPC server for work, from the game thread
+	if (srv)
+	{
+		srv->poll();
+	}
+
+	return ReturnValue;
 }
 
 int __fastcall GameFocusHook(GameStructs::Game* This, void* Unused, void* wnd, unsigned int msg, unsigned int wparam, int lparam)

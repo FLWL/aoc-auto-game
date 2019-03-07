@@ -2,7 +2,7 @@
 #include <list>
 #include <sstream>
 
-const float API_VERSION = 1.12f;
+const float API_VERSION = 1.13f;
 
 bool RunUnfocused = false;
 
@@ -30,6 +30,7 @@ namespace GameStructs
 		ME_VIEWONLY = 0x6,
 	};
 
+	bool *DoFixedUpdate = (bool*)0x791208;
 	Game* GamePointer = *(Game**)0x7912A0;
 	CommunicationsHandler* CommPointer = *(CommunicationsHandler**)0x791200;
 }
@@ -360,8 +361,13 @@ namespace RpcFuncs
 		return API_VERSION;
 	}
 
-	void SetRunUnfocused(bool RunUnfocused)
+	void SetRunUnfocused(bool Run)
 	{
-		RunUnfocused = RunUnfocused;
+		RunUnfocused = Run;
+	}
+
+	void SetRunFullSpeed(bool FullSpeed)
+	{
+		*GameStructs::DoFixedUpdate = FullSpeed;
 	}
 }
