@@ -2,7 +2,7 @@
 An API for programmatically starting Age of Empires II: The Conquerors matches with specified settings.
 
 ## Features
-* Direct C++ API
+* Direct C++ API (library exports)
 * msgpack-rpc based API that is callable from many languages, including Python, Java and C++
 * Change any game setting available in the in-game lobby programmatically
 * Allow a single-player match to run even after minimizing the game
@@ -131,9 +131,6 @@ public class Main
 
 ## Known issues
 * Calling "QuitGame" from post match stats screen results in looping background music.
-
-## In the future
-* Implement the rest of the less important game settings
 
 ## Dependencies
 * Microsoft Detours - https://github.com/Microsoft/Detours
