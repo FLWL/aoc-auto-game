@@ -2,6 +2,7 @@
 An API for programmatically starting Age of Empires II: The Conquerors matches with specified settings.
 
 ## Features
+* Direct C++ API (library exports)
 * msgpack-rpc based API that is callable from many languages, including Python, Java and C++
 * Change any game setting available in the in-game lobby programmatically
 * Allow a single-player match to run even after minimizing the game
@@ -86,6 +87,7 @@ public class Main
 |  **GetWinningPlayers** |  |  | Returns all winning players as a list. |
 |  **QuitGame** |  |  | Exits the match. |
 |  **GetApiVersion** |  |  | Returns the aoc-auto-game API version as a float. |
+|  **SetRunUnfocused** | **bool RunUnfocused** |  | Whether to allow the game logic to continue running after the window has been minimized. |
 |  **SetGameType** | **int Type** |  | Sets the type of the game. |
 |   | 0 - Random Map<br/>1 - Regicide<br/>2 - Death Match<br/>3 - Scenario<br/>5 - King of the Hill<br/>6 - Wonder Race<br/>7 - Defend the Wonder<br/>8 - Turbo Random Map |  |  |
 |  **SetGameScenarioName** | **string ScenarioName** |  | Scenario map name. Only used if GameType is set to 3. |
@@ -110,7 +112,6 @@ public class Main
 |  **SetGameLockTeams** | **bool LockTeams** |  | Turn off diplomacy. |
 |  **SetGameAllTechs** | **bool AllTechs** |  | Lose unique properties of each civilization and allow all techs to be researched. |
 |  **SetGameRecorded** | **bool Recorded** |  | Whether to record the game into a replay file. |
-|  **SetGameRunUnfocused** | **bool RunUnfocused** |  | Sets whether the game is allowed to run while not in focus. Enabled by default. |
 |  **SetPlayerHuman** | **int PlayerNumber** |  | Specifies that a human will be playing in this slot. Recommended to use slot 1. |
 |   | 1-8 |  |  |
 |  **SetPlayerComputer** | **int PlayerNumber** | **string AIFile** | Adds a specific computer player to the specified slot. |
@@ -130,9 +131,6 @@ public class Main
 
 ## Known issues
 * Calling "QuitGame" from post match stats screen results in looping background music.
-
-## In the future
-* Implement the rest of the less important game settings
 
 ## Dependencies
 * Microsoft Detours - https://github.com/Microsoft/Detours
