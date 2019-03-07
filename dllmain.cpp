@@ -40,6 +40,7 @@ void CreateRpcServer()
 	srv->bind("GetWinningPlayers", &RpcFuncs::GetWinningPlayers);
 	srv->bind("QuitGame", &RpcFuncs::QuitGame);
 	srv->bind("GetApiVersion", &RpcFuncs::GetApiVersion);
+	srv->bind("SetRunUnfocused", &RpcFuncs::SetRunUnfocused);
 
 	srv->bind("SetGameType", &RpcFuncs::SetGameType);
 	srv->bind("SetGameScenarioName", &RpcFuncs::SetGameScenarioName);
@@ -55,7 +56,6 @@ void CreateRpcServer()
 	srv->bind("SetGameLockTeams", &RpcFuncs::SetGameLockTeams);
 	srv->bind("SetGameAllTechs", &RpcFuncs::SetGameAllTechs);
 	srv->bind("SetGameRecorded", &RpcFuncs::SetGameRecorded);
-	srv->bind("SetGameRunUnfocused", &RpcFuncs::SetGameRunUnfocused);
 
 	srv->bind("SetPlayerHuman", &RpcFuncs::SetPlayerHuman);
 	srv->bind("SetPlayerComputer", &RpcFuncs::SetPlayerComputer);
@@ -72,8 +72,8 @@ void HookGame()
 {
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
-	DetourAttach(&(PVOID&)GameFuncs::TribeGame::HandleIdle, GameThreadHook);
-	DetourAttach(&(PVOID&)GameFuncs::BaseGame::HandleActivate, GameFocusHook);
+	DetourAttach(&(PVOID&)GameFuncs::TribeGame::_HandleIdle, GameThreadHook);
+	DetourAttach(&(PVOID&)GameFuncs::BaseGame::_HandleActivate, GameFocusHook);
 	DetourTransactionCommit();
 }
 
@@ -82,8 +82,8 @@ void UnhookGame()
 {
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
-	DetourDetach(&(PVOID&)GameFuncs::TribeGame::HandleIdle, GameThreadHook);
-	DetourDetach(&(PVOID&)GameFuncs::BaseGame::HandleActivate, GameFocusHook);
+	DetourDetach(&(PVOID&)GameFuncs::TribeGame::_HandleIdle, GameThreadHook);
+	DetourDetach(&(PVOID&)GameFuncs::BaseGame::_HandleActivate, GameFocusHook);
 	DetourTransactionCommit();
 }
 
@@ -102,7 +102,7 @@ void DisableDebugConsole()
 
 int __fastcall GameThreadHook(GameStructs::Game* This, void* Unused)
 {
-	int ReturnValue = GameFuncs::TribeGame::HandleIdle(This);
+	int ReturnValue = GameFuncs::TribeGame::_HandleIdle(This);
 
 	// Poll the RPC server for work, from the game thread
 	if (srv)
@@ -138,8 +138,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 
 int __fastcall GameFocusHook(GameStructs::Game* This, void* Unused, void* wnd, unsigned int msg, unsigned int wparam, int lparam)
 {
-	if (RunGameUnfocused && wparam == 0)
+	if (RunUnfocused && wparam == 0)
 		wparam = 1;
 
-	return GameFuncs::BaseGame::HandleActivate(This, wnd, msg, wparam, lparam);
+	return GameFuncs::BaseGame::_HandleActivate(This, wnd, msg, wparam, lparam);
 }

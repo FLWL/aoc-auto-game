@@ -4,7 +4,7 @@
 
 const float API_VERSION = 1.12f;
 
-bool RunGameUnfocused = true;
+bool RunUnfocused = false;
 
 namespace GameStructs
 {
@@ -38,78 +38,78 @@ namespace GameFuncs
 {
 	namespace CommHandler
 	{
-		void(__thiscall* SetPlayerHumanity)(GameStructs::CommunicationsHandler* This, int PlayerIndex, int Humanity) = (void(__thiscall*)(GameStructs::CommunicationsHandler*, int, int))0x5D9680;
+		void(__thiscall* _SetPlayerHumanity)(GameStructs::CommunicationsHandler* This, int PlayerIndex, int Humanity) = (void(__thiscall*)(GameStructs::CommunicationsHandler*, int, int))0x5D9680;
 		
-		GameStructs::PlayerHumanity(__thiscall* GetPlayerHumanity)(GameStructs::CommunicationsHandler* This, int PlayerIndex) = (GameStructs::PlayerHumanity(__thiscall*)(GameStructs::CommunicationsHandler*, int))0x5D9650;
+		GameStructs::PlayerHumanity(__thiscall* _GetPlayerHumanity)(GameStructs::CommunicationsHandler* This, int PlayerIndex) = (GameStructs::PlayerHumanity(__thiscall*)(GameStructs::CommunicationsHandler*, int))0x5D9650;
 	}
 
 	namespace TribeMPSetupScreen
 	{
-		int(__thiscall* LaunchGame)(void* This) = (int(__thiscall*)(void*))0x4FF390;
+		int(__thiscall* _LaunchGame)(void* This) = (int(__thiscall*)(void*))0x4FF390;
 	}
 
 	namespace BaseGame
 	{
 		// Game funcs
-		void(__thiscall* SetMultiplayerGame)(GameStructs::Game* This, bool bMultiplayer) = (void(__thiscall*)(GameStructs::Game*, bool))0x5EB1C0;
+		void(__thiscall* _SetMultiplayerGame)(GameStructs::Game* This, bool bMultiplayer) = (void(__thiscall*)(GameStructs::Game*, bool))0x5EB1C0;
 		
-		void(__thiscall* SetSinglePlayerGame)(GameStructs::Game* This, bool bSinglePlayer) = (void(__thiscall*)(GameStructs::Game*, bool))0x5EB1A0;
+		void(__thiscall* _SetSinglePlayerGame)(GameStructs::Game* This, bool bSinglePlayer) = (void(__thiscall*)(GameStructs::Game*, bool))0x5EB1A0;
 		
-		void(__thiscall* SetScenarioName)(GameStructs::Game* This, const char* ScenarioName) = (void(__thiscall*)(GameStructs::Game*, const char*))0x5EB160;
+		void(__thiscall* _SetScenarioName)(GameStructs::Game* This, const char* ScenarioName) = (void(__thiscall*)(GameStructs::Game*, const char*))0x5EB160;
 		
-		void(__thiscall* SetDifficulty)(GameStructs::Game* This, int Difficulty) = (void(__thiscall*)(GameStructs::Game*, int))0x5EB2F0;
+		void(__thiscall* _SetDifficulty)(GameStructs::Game* This, int Difficulty) = (void(__thiscall*)(GameStructs::Game*, int))0x5EB2F0;
 		
-		void(__thiscall* GameTeamsLocked)(GameStructs::Game* This, char Locked) = (void(__thiscall*)(GameStructs::Game*, char))0x5EB460;
+		void(__thiscall* _GameTeamsLocked)(GameStructs::Game* This, char Locked) = (void(__thiscall*)(GameStructs::Game*, char))0x5EB460;
 		
-		void(__thiscall* SetRecordGame)(GameStructs::Game* This, int Record) = (void(__thiscall*)(GameStructs::Game*, int))0x5EB230;
+		void(__thiscall* _SetRecordGame)(GameStructs::Game* This, int Record) = (void(__thiscall*)(GameStructs::Game*, int))0x5EB230;
 		
-		void(__thiscall* SetNumberPlayers)(GameStructs::Game* This, int NumberPlayers) = (void(__thiscall*)(GameStructs::Game*, int))0x5EB260;
-
-		int(__thiscall* HandleActivate)(GameStructs::Game* This, void* wnd, unsigned int msg, unsigned int wparam, int lparam) = (int(__thiscall*)(GameStructs::Game*, void*, unsigned int, unsigned int, int))0x5E8830;
+		void(__thiscall* _SetNumberPlayers)(GameStructs::Game* This, int NumberPlayers) = (void(__thiscall*)(GameStructs::Game*, int))0x5EB260;
+		
+		int(__thiscall* _HandleActivate)(GameStructs::Game* This, void* wnd, unsigned int msg, unsigned int wparam, int lparam) = (int(__thiscall*)(GameStructs::Game*, void*, unsigned int, unsigned int, int))0x5E8830;
 
 		// Player funcs
-		void(__thiscall* SetPlayerTeam)(GameStructs::Game* This, int PlayerNum, char Team) = (void(__thiscall*)(GameStructs::Game*, int, char))0x5EB300;
+		void(__thiscall* _SetPlayerTeam)(GameStructs::Game* This, int PlayerNum, char Team) = (void(__thiscall*)(GameStructs::Game*, int, char))0x5EB300;
 	}
 
 	namespace TribeGame
 	{
 		// Game thread hook
-		int(__thiscall* HandleIdle)(void* This) = (int(__thiscall*)(void*))0x445BC0;
+		int(__thiscall* _HandleIdle)(void* This) = (int(__thiscall*)(void*))0x445BC0;
 		
 		// General funcs
-		int(__thiscall* StartGame)(GameStructs::Game* This, bool bSkipStartupScreens) = (int(__thiscall*)(GameStructs::Game*, bool))0x4420D0;
+		int(__thiscall* _StartGame)(GameStructs::Game* This, bool bSkipStartupScreens) = (int(__thiscall*)(GameStructs::Game*, bool))0x4420D0;
 		
-		int(__thiscall* QuitGame)(GameStructs::Game* This) = (int(__thiscall*)(GameStructs::Game*))0x43F460;
+		int(__thiscall* _QuitGame)(GameStructs::Game* This) = (int(__thiscall*)(GameStructs::Game*))0x43F460;
 		
 		// Game funcs
-		void(__thiscall* SetGameType)(GameStructs::Game* This, int GameType) = (void(__thiscall*)(GameStructs::Game*, int))0x445AE0;
-		bool(__thiscall* ScenarioGame)(GameStructs::Game* This) = (bool(__thiscall*)(GameStructs::Game*))0x4484A0;
+		void(__thiscall* _SetGameType)(GameStructs::Game* This, int GameType) = (void(__thiscall*)(GameStructs::Game*, int))0x445AE0;
+		bool(__thiscall* _ScenarioGame)(GameStructs::Game* This) = (bool(__thiscall*)(GameStructs::Game*))0x4484A0;
 
-		void(__thiscall* SetMapType)(GameStructs::Game* This, int MapType) = (void(__thiscall*)(GameStructs::Game*, int))0x445650;
+		void(__thiscall* _SetMapType)(GameStructs::Game* This, int MapType) = (void(__thiscall*)(GameStructs::Game*, int))0x445650;
 		
-		void(__thiscall* SetMapSize)(GameStructs::Game* This, int MapSize) = (void(__thiscall*)(GameStructs::Game*, int))0x4454F0;
+		void(__thiscall* _SetMapSize)(GameStructs::Game* This, int MapSize) = (void(__thiscall*)(GameStructs::Game*, int))0x4454F0;
 		
-		void(__thiscall* SetResourceLevel)(GameStructs::Game* This, int ResourceLevel) = (void(__thiscall*)(GameStructs::Game*, int))0x445AB0;
+		void(__thiscall* _SetResourceLevel)(GameStructs::Game* This, int ResourceLevel) = (void(__thiscall*)(GameStructs::Game*, int))0x445AB0;
 		
-		void(__thiscall* SetPopLimit)(GameStructs::Game* This, int PopLimit) = (void(__thiscall*)(GameStructs::Game*, int))0x445AF0;
+		void(__thiscall* _SetPopLimit)(GameStructs::Game* This, int PopLimit) = (void(__thiscall*)(GameStructs::Game*, int))0x445AF0;
 		
-		void(__thiscall* SetVisibilityType)(GameStructs::Game* This, int VisibilityType) = (void(__thiscall*)(GameStructs::Game*, int))0x4454D0;
+		void(__thiscall* _SetVisibilityType)(GameStructs::Game* This, int VisibilityType) = (void(__thiscall*)(GameStructs::Game*, int))0x4454D0;
 		
-		void(__thiscall* SetStartingAge)(GameStructs::Game* This, int StartingAge) = (void(__thiscall*)(GameStructs::Game*, int))0x445AC0;
+		void(__thiscall* _SetStartingAge)(GameStructs::Game* This, int StartingAge) = (void(__thiscall*)(GameStructs::Game*, int))0x445AC0;
 		
-		void(__thiscall* SetVictoryType)(GameStructs::Game* This, int VictoryTypeIn, int AmountIn) = (void(__thiscall*)(GameStructs::Game*, int, int))0x445860;
+		void(__thiscall* _SetVictoryType)(GameStructs::Game* This, int VictoryTypeIn, int AmountIn) = (void(__thiscall*)(GameStructs::Game*, int, int))0x445860;
 		
-		void(__thiscall* SetRandomizePositions)(GameStructs::Game* This, char RandomizePositions) = (void(__thiscall*)(GameStructs::Game*, char))0x445A90;
-		int(__thiscall* GetRandomizePositions)(GameStructs::Game* This) = (int(__thiscall*)(GameStructs::Game*))0x4459E0;
+		void(__thiscall* _SetRandomizePositions)(GameStructs::Game* This, char RandomizePositions) = (void(__thiscall*)(GameStructs::Game*, char))0x445A90;
+		int(__thiscall* _GetRandomizePositions)(GameStructs::Game* This) = (int(__thiscall*)(GameStructs::Game*))0x4459E0;
 		
-		void(__thiscall* SetFullTechTree)(GameStructs::Game* This, int FullTechTree) = (void(__thiscall*)(GameStructs::Game*, int))0x445AA0;
+		void(__thiscall* _SetFullTechTree)(GameStructs::Game* This, int FullTechTree) = (void(__thiscall*)(GameStructs::Game*, int))0x445AA0;
 		
 		// Player funcs
-		void(__thiscall* SetComputerAIFile)(GameStructs::Game* This, int PlayerNum, const char* AIFile) = (void(__thiscall*)(GameStructs::Game*, int, const char*))0x445970;
+		void(__thiscall* _SetComputerAIFile)(GameStructs::Game* This, int PlayerNum, const char* AIFile) = (void(__thiscall*)(GameStructs::Game*, int, const char*))0x445970;
 		
-		void(__thiscall* SetCivilization)(GameStructs::Game* This, int PlayerNum, int Civilization) = (void(__thiscall*)(GameStructs::Game*, int, int))0x445890;
+		void(__thiscall* _SetCivilization)(GameStructs::Game* This, int PlayerNum, int Civilization) = (void(__thiscall*)(GameStructs::Game*, int, int))0x445890;
 		
-		void(__thiscall* SetPlayerColor)(GameStructs::Game* This, int PlayerNum, int Color) = (void(__thiscall*)(GameStructs::Game*, int, int))0x4458F0;
+		void(__thiscall* _SetPlayerColor)(GameStructs::Game* This, int PlayerNum, int Color) = (void(__thiscall*)(GameStructs::Game*, int, int))0x4458F0;
 	}
 }
 
@@ -118,27 +118,27 @@ namespace RpcFuncs
 	// Game funcs
 	void SetGameMultiPlayer(bool MultiPlayer)
 	{
-		GameFuncs::BaseGame::SetMultiplayerGame(GameStructs::GamePointer, MultiPlayer);
+		GameFuncs::BaseGame::_SetMultiplayerGame(GameStructs::GamePointer, MultiPlayer);
 	}
 
 	void SetGameTeamsTogether(bool TeamsTogether)
 	{
 		// Teams must be together in scenario maps right now, because the particular
 		// scenario team randomization function requires an UI element
-		if (GameFuncs::TribeGame::ScenarioGame(GameStructs::GamePointer))
+		if (GameFuncs::TribeGame::_ScenarioGame(GameStructs::GamePointer))
 		{
 			TeamsTogether = true;
 		}
 
-		GameFuncs::TribeGame::SetRandomizePositions(GameStructs::GamePointer, !TeamsTogether);
+		GameFuncs::TribeGame::_SetRandomizePositions(GameStructs::GamePointer, !TeamsTogether);
 	}
 	
 	void SetGameType(int GameType)
 	{
-		GameFuncs::TribeGame::SetGameType(GameStructs::GamePointer, GameType);
+		GameFuncs::TribeGame::_SetGameType(GameStructs::GamePointer, GameType);
 
 		// No support for randomizing positions in scenario maps right now
-		if (GameFuncs::TribeGame::ScenarioGame(GameStructs::GamePointer))
+		if (GameFuncs::TribeGame::_ScenarioGame(GameStructs::GamePointer))
 		{
 			SetGameTeamsTogether(true);
 		}
@@ -146,104 +146,99 @@ namespace RpcFuncs
 
 	void SetGameScenarioName(const std::string& ScenarioName)
 	{
-		GameFuncs::BaseGame::SetScenarioName(GameStructs::GamePointer, ScenarioName.c_str());
+		GameFuncs::BaseGame::_SetScenarioName(GameStructs::GamePointer, ScenarioName.c_str());
 	}
 
 	void SetGameMapType(int MapType)
 	{
-		GameFuncs::TribeGame::SetMapType(GameStructs::GamePointer, MapType);
+		GameFuncs::TribeGame::_SetMapType(GameStructs::GamePointer, MapType);
 	}
 
 	void SetGameMapSize(int MapSize)
 	{
-		GameFuncs::TribeGame::SetMapSize(GameStructs::GamePointer, MapSize);
+		GameFuncs::TribeGame::_SetMapSize(GameStructs::GamePointer, MapSize);
 	}
 
 	void SetGameDifficulty(int Difficulty)
 	{
-		GameFuncs::BaseGame::SetDifficulty(GameStructs::GamePointer, Difficulty);
+		GameFuncs::BaseGame::_SetDifficulty(GameStructs::GamePointer, Difficulty);
 	}
 
 	void SetGameStartingResources(int StartingResources)
 	{
-		GameFuncs::TribeGame::SetResourceLevel(GameStructs::GamePointer, StartingResources);
+		GameFuncs::TribeGame::_SetResourceLevel(GameStructs::GamePointer, StartingResources);
 	}
 
 	void SetGamePopulationLimit(int PopulationLimit)
 	{
-		GameFuncs::TribeGame::SetPopLimit(GameStructs::GamePointer, PopulationLimit / 25);
+		GameFuncs::TribeGame::_SetPopLimit(GameStructs::GamePointer, PopulationLimit / 25);
 	}
 
 	void SetGameRevealMap(int RevealMap)
 	{
-		GameFuncs::TribeGame::SetVisibilityType(GameStructs::GamePointer, RevealMap);
+		GameFuncs::TribeGame::_SetVisibilityType(GameStructs::GamePointer, RevealMap);
 	}
 
 	void SetGameStartingAge(int StartingAge)
 	{
-		GameFuncs::TribeGame::SetStartingAge(GameStructs::GamePointer, StartingAge);
+		GameFuncs::TribeGame::_SetStartingAge(GameStructs::GamePointer, StartingAge);
 	}
 
 	void SetGameVictoryType(int VictoryType, int VictoryValue)
 	{
-		GameFuncs::TribeGame::SetVictoryType(GameStructs::GamePointer, VictoryType, VictoryValue);
+		GameFuncs::TribeGame::_SetVictoryType(GameStructs::GamePointer, VictoryType, VictoryValue);
 	}
 
 	void SetGameLockTeams(bool LockTeams)
 	{
-		GameFuncs::BaseGame::GameTeamsLocked(GameStructs::GamePointer, LockTeams);
+		GameFuncs::BaseGame::_GameTeamsLocked(GameStructs::GamePointer, LockTeams);
 	}
 
 	void SetGameAllTechs(bool AllTechs)
 	{
-		GameFuncs::TribeGame::SetFullTechTree(GameStructs::GamePointer, AllTechs);
+		GameFuncs::TribeGame::_SetFullTechTree(GameStructs::GamePointer, AllTechs);
 	}
 
 	void SetGameRecorded(bool Record)
 	{
-		GameFuncs::BaseGame::SetRecordGame(GameStructs::GamePointer, Record);
-	}
-
-	void SetGameRunUnfocused(bool RunUnfocused)
-	{
-		RunGameUnfocused = RunUnfocused;
+		GameFuncs::BaseGame::_SetRecordGame(GameStructs::GamePointer, Record);
 	}
 
 	// Player funcs
 	void SetPlayerHuman(int PlayerNumber)
 	{
-		GameFuncs::CommHandler::SetPlayerHumanity(GameStructs::CommPointer, PlayerNumber, GameStructs::PlayerHumanity::ME_HUMAN);
+		GameFuncs::CommHandler::_SetPlayerHumanity(GameStructs::CommPointer, PlayerNumber, GameStructs::PlayerHumanity::ME_HUMAN);
 	}
 
 	void SetPlayerComputer(int PlayerNumber, const std::string& AIFile)
 	{
-		GameFuncs::CommHandler::SetPlayerHumanity(GameStructs::CommPointer, PlayerNumber, GameStructs::PlayerHumanity::ME_COMPUTER);
-		GameFuncs::TribeGame::SetComputerAIFile(GameStructs::GamePointer, PlayerNumber - 1, AIFile.c_str());
+		GameFuncs::CommHandler::_SetPlayerHumanity(GameStructs::CommPointer, PlayerNumber, GameStructs::PlayerHumanity::ME_COMPUTER);
+		GameFuncs::TribeGame::_SetComputerAIFile(GameStructs::GamePointer, PlayerNumber - 1, AIFile.c_str());
 	}
 
 	void SetPlayerClosed(int PlayerNumber)
 	{
-		GameFuncs::CommHandler::SetPlayerHumanity(GameStructs::CommPointer, PlayerNumber, GameStructs::PlayerHumanity::ME_CLOSED);
+		GameFuncs::CommHandler::_SetPlayerHumanity(GameStructs::CommPointer, PlayerNumber, GameStructs::PlayerHumanity::ME_CLOSED);
 	}
 
 	void SetPlayerCivilization(int PlayerNumber, int Civilization)
 	{
-		GameFuncs::TribeGame::SetCivilization(GameStructs::GamePointer, PlayerNumber - 1, Civilization);
+		GameFuncs::TribeGame::_SetCivilization(GameStructs::GamePointer, PlayerNumber - 1, Civilization);
 	}
 
 	void SetPlayerColor(int PlayerNumber, int Color)
 	{
-		GameFuncs::TribeGame::SetPlayerColor(GameStructs::GamePointer, PlayerNumber - 1, Color);
+		GameFuncs::TribeGame::_SetPlayerColor(GameStructs::GamePointer, PlayerNumber - 1, Color);
 	}
 
 	void SetPlayerTeam(int PlayerNumber, int Team)
 	{
-		GameFuncs::BaseGame::SetPlayerTeam(GameStructs::GamePointer, PlayerNumber - 1, Team + 1);
+		GameFuncs::BaseGame::_SetPlayerTeam(GameStructs::GamePointer, PlayerNumber - 1, Team + 1);
 	}
 
 	bool GetPlayerExists(int PlayerNum)
 	{
-		GameStructs::PlayerHumanity Humanity = GameFuncs::CommHandler::GetPlayerHumanity(GameStructs::CommPointer, PlayerNum);
+		GameStructs::PlayerHumanity Humanity = GameFuncs::CommHandler::_GetPlayerHumanity(GameStructs::CommPointer, PlayerNum);
 		
 		return Humanity > GameStructs::PlayerHumanity::ME_CLOSED;
 	}
@@ -336,7 +331,7 @@ namespace RpcFuncs
 
 	void QuitGame()
 	{
-		GameFuncs::TribeGame::QuitGame(GameStructs::GamePointer);
+		GameFuncs::TribeGame::_QuitGame(GameStructs::GamePointer);
 	}
 
 	bool StartGame()
@@ -347,15 +342,15 @@ namespace RpcFuncs
 		int NumPlayers = 0;
 		for (int i = 1; i <= 8; i++)
 		{
-			GameStructs::PlayerHumanity Humanity = GameFuncs::CommHandler::GetPlayerHumanity(GameStructs::CommPointer, i);
+			GameStructs::PlayerHumanity Humanity = GameFuncs::CommHandler::_GetPlayerHumanity(GameStructs::CommPointer, i);
 			
 			if (Humanity == GameStructs::PlayerHumanity::ME_HUMAN || Humanity == GameStructs::PlayerHumanity::ME_COMPUTER)
 				NumPlayers = i;
 		}
-		GameFuncs::BaseGame::SetNumberPlayers(GameStructs::GamePointer, NumPlayers);
+		GameFuncs::BaseGame::_SetNumberPlayers(GameStructs::GamePointer, NumPlayers);
 
 		void* DummyMPSetupScreen = operator new(0xDD0u);
-		bool LaunchResult = GameFuncs::TribeMPSetupScreen::LaunchGame(DummyMPSetupScreen);
+		bool LaunchResult = GameFuncs::TribeMPSetupScreen::_LaunchGame(DummyMPSetupScreen);
 		delete DummyMPSetupScreen;
 		return LaunchResult;
 	}
@@ -363,5 +358,10 @@ namespace RpcFuncs
 	const float GetApiVersion()
 	{
 		return API_VERSION;
+	}
+
+	void SetRunUnfocused(bool RunUnfocused)
+	{
+		RunUnfocused = RunUnfocused;
 	}
 }
