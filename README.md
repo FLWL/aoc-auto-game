@@ -1,5 +1,5 @@
 # aoc-auto-game
-An API for programmatically starting Age of Empires II: The Conquerors matches with specified settings.
+An API for programmatically starting Age of Empires II: The Conquerors matches with specified settings. This is meant for offline usage only.
 
 ## Features
 * Direct C++ API (library exports)
@@ -10,16 +10,22 @@ An API for programmatically starting Age of Empires II: The Conquerors matches w
 * Launch games with desired settings
 * Determine when a match ends
 * Determine the winning players
-* Exit from a match
+* Restart or exit from a match
 
 ## Usage
-1. Compile the DLL with dependencies listed at the bottom of this page
+1. Grab the release or compile the DLL yourself with the dependencies listed at the bottom of this page
 2. Load the DLL into age2_x1 process
 3. Connect with a msgpack-RPC client on address 127.0.0.1:64720
 4. Issue commands to the game to automate starting games
 
+Check the example_scripts folder for how to do some of this.
+
 ## Python example
-Using the ```msgpack-rpc-python``` package. Let's start a game on an all-visible random map. We'll have custom AIs "Barbarian" and "AT_Empire" facing off against each other in player slots 1 and 2 respectively.
+Using the ```msgpack-rpc-python``` package.
+
+This assumes that you have already loaded the DLL into the game. For an example on how to do this check the launch_aoc.py script in the example_scripts folder.
+
+This starts a game on an all-visible random map. We'll have custom AIs "Barbarian" and "AT_Empire" facing off against each other in player slots 1 and 2 respectively.
 ```
 import msgpackrpc
 import time
@@ -124,11 +130,11 @@ public class Main
 |  **SetPlayerClosed** | **int PlayerNumber** |  | Removes a player from a specific slot and marks it as closed. |
 |   | 1-8 |  |  |
 |  **SetPlayerCivilization** | **int PlayerNumber** | **int Civilization** | Set the player's civilization. |
-|   | 1-8 | 1 - Britons<br/>2 - Franks<br/>3 - Goths<br/>4 - Teutons<br/>5 - Japanese<br/>6 - Chinese<br/>7 - Byzantine<br/>8 - Persians<br/>9 - Saracens<br/>10 - Turks<br/>11 - Vikings<br/>12 - Mongols<br/>13 - Celts<br/>14 - Spanish<br/>15 - Aztec<br/>16 - Mayan<br/>17 - Huns<br/>18 - Koreans<br/>19 - Random<br/>30 - Random 2 |  |
+|   | 1-8 | 1 - Britons<br/>2 - Franks<br/>3 - Goths<br/>4 - Teutons<br/>5 - Japanese<br/>6 - Chinese<br/>7 - Byzantine<br/>8 - Persians<br/>9 - Saracens<br/>10 - Turks<br/>11 - Vikings<br/>12 - Mongols<br/>13 - Celts<br/>14 - Spanish<br/>15 - Aztec<br/>16 - Mayan<br/>17 - Huns<br/>18 - Koreans<br/>19 - Random<br/>30 - Random |  |
 |  **SetPlayerColor** | **int PlayerNumber** | **int Color** | Set color of the player's units and buildings. |
 |   | 1-8 | 1-8 |  |
 |  **SetPlayerTeam** | **int PlayerNumber** | **int Team** | Set which team the player belongs to. |
-|   | 1-8 | 0 - No team<br/>1 - Team 1<br/>2 - Team 2<br/>3 - Team 3<br/>4 - Team 4<br/>5 - Random Team<br/> |  |
+|   | 1-8 | 0 - No team<br/>1 - Team 1<br/>2 - Team 2<br/>3 - Team 3<br/>4 - Team 4<br/>5 - Random Team |  |
 |  **GetPlayerExists** | **int PlayerNumber** |  | Returns whether the player slot is taken. |
 |   | 1-8 |  |  |
 |  **GetPlayerAlive** | **int PlayerNumber** |  | Returns whether the player is alive in the game. |
