@@ -83,21 +83,22 @@ public class Main
 ## API
 |  **Function** | **Param 1** | **Param 2** | **Description** |
 | :--- | :--- | :--- | :--- |
-|  **ResetGameSettings** |  |  | Reset all game settings and players to their valid default state. |
+|  **ResetGameSettings** |  |  | Reset all game settings and players to their valid default state. This also quits from any ongoing game, since changing settings during the game does not completely work. |
 |  **StartGame** |  |  | Start the game with previously specified settings. |
 |  **GetGameInProgress** |  |  | Whether a game is ongoing. Returns a boolean value. |
 |  **GetWinningPlayer** |  |  | Returns the first winning player number as an integer. |
 |  **GetWinningPlayers** |  |  | Returns all winning players as a list. |
+|  **RestartGame** |  |  | Restart the game if called while the game world has been loaded. |
 |  **QuitGame** |  |  | Exits the match. |
 |  **GetApiVersion** |  |  | Returns the aoc-auto-game API version as a float. |
 |  **SetRunUnfocused** | **bool RunUnfocused** |  | Whether to allow the game logic to continue running after the window has been minimized. |
 |  **SetRunFullSpeed** | **bool FullSpeed** |  | Whether to run the game logic as fast as possible. |
 |  **SetGameType** | **int Type** |  | Sets the type of the game. |
-|   | 0 - Random Map<br/>1 - Regicide<br/>2 - Death Match<br/>3 - Scenario<br/>5 - King of the Hill<br/>6 - Wonder Race<br/>7 - Defend the Wonder<br/>8 - Turbo Random Map |  |  |
+|   | 0 - Random Map<br/>1 - Regicide<br/>2 - Death Match<br/>3 - Scenario<br/>5 - King of the Hill<br/>6 - Wonder Race<br/>8 - Turbo Random Map |  |  |
 |  **SetGameScenarioName** | **string ScenarioName** |  | Scenario map name. Only used if GameType is set to 3. |
 |   | "test_scenario" |  |  |
 |  **SetGameMapType** | **int MapType** |  | Sets the location of the random map. |
-|   | 9 - Arabia<br/>13 - Coastal<br/>14 - Continental<br/>24 - Random |  |  |
+|   | 9 - Arabia<br/><br/>10 - Archipelago<br/><br/>11 - Baltic<br/><br/>12 - Black forest<br/><br/>13 - Coastal<br/><br/>14 - Continental<br/><br/>15 - Crater Lake<br/><br/>16 - Fortress<br/><br/>17 - Gold Rush<br/><br/>18 - Highland<br/><br/>19 - Islands<br/><br/>20 - Mediterranean<br/><br/>21 - Migration<br/><br/>22 - Rivers<br/><br/>23 - Team Islands<br/><br/>24 - Random Map<br/><br/>25 - Scandinavia<br/><br/>26 - Mongolia<br/><br/>27 - Yucatan<br/><br/>28 - Salt marsh<br/><br/>29 - Arena<br/><br/>31 - Oasis<br/><br/>32 - Ghost Lake<br/><br/>33 - Nomad<br/><br/>34 - Iberia<br/><br/>35 - Britain<br/><br/>36 - Mideast<br/><br/>37 - Texas<br/><br/>38 - Italy<br/><br/>39 - Central America<br/><br/>40 - France<br/><br/>41 - Norse Lands<br/><br/>42 - Sea of Japan (East Sea)<br/><br/>43 - Byzantium<br/><br/>45 - Random Land Map<br/><br/>47 - Random Real World Map<br/><br/>48 - Blind Random<br/><br/>49 - Conventional Random Map |  |  |
 |  **SetGameMapSize** | **int MapSize** |  | Random map size. |
 |   | 0 - Tiny<br/>1 - Small<br/>2 - Medium<br/>3 - Normal<br/>4 - Large<br/>5 - Giant |  |  |
 |  **SetGameDifficulty** | **int Difficulty** |  | Difficulty of the game. |
@@ -111,7 +112,7 @@ public class Main
 |  **SetGameStartingAge** | **int StartingAge** |  | UserPatch 1.5 implements some new options in this category, not certain of those IDs. |
 |   | 0 - Standard<br/>2 - Dark Age<br/>3 - Feudal Age<br/>4 - Castle Age<br/>5 - Imperial Age<br/>6 - Post-Imperial Age |  |  |
 |  **SetGameVictoryType** | **int VictoryType** | **int VictoryValue** | Additional game victory condition. |
-|   | 0 - Standard<br/>1 - Conquest<br/>4 - Relics<br/>7 - Time Limit<br/>8 - Score | 0<br/>1<br/>0<br/>300 - 1500 years<br/>4000 - 14000 score |  |
+|   | 0 - Standard<br/>1 - Conquest<br/>4 - Relics<br/>7 - Time Limit<br/>8 - Score | For time limit, at normal game speed, every 10 victory value units = 1 year in-game.<br/>For score victory, this is the score required to win.<br/>Otherwise this parameter can be set to 0. |  |
 |  **SetGameTeamsTogether** | **bool TeamsTogether** |  | Cannot be disabled in scenario maps. |
 |  **SetGameLockTeams** | **bool LockTeams** |  | Turn off diplomacy. |
 |  **SetGameAllTechs** | **bool AllTechs** |  | Lose unique properties of each civilization and allow all techs to be researched. |
@@ -123,7 +124,7 @@ public class Main
 |  **SetPlayerClosed** | **int PlayerNumber** |  | Removes a player from a specific slot and marks it as closed. |
 |   | 1-8 |  |  |
 |  **SetPlayerCivilization** | **int PlayerNumber** | **int Civilization** | Set the player's civilization. |
-|   | 1-8 | 1 - Britons<br/>30 - Random |  |
+|   | 1-8 | 1 - Britons<br/><br/>2 - Franks<br/><br/>3 - Goths<br/><br/>4 - Teutons<br/><br/>5 - Japanese<br/><br/>6 - Chinese<br/><br/>7 - Byzantine<br/><br/>8 - Persians<br/><br/>9 - Saracens<br/><br/>10 - Turks<br/><br/>11 - Vikings<br/><br/>12 - Mongols<br/><br/>13 - Celts<br/><br/>14 - Spanish<br/><br/>15 - Aztec<br/><br/>16 - Mayan<br/><br/>17 - Huns<br/><br/>18 - Koreans<br/><br/>19 - Random<br/><br/>30 - Random 2 |  |
 |  **SetPlayerColor** | **int PlayerNumber** | **int Color** | Set color of the player's units and buildings. |
 |   | 1-8 | 1-8 |  |
 |  **SetPlayerTeam** | **int PlayerNumber** | **int Team** | Set which team the player belongs to. |
@@ -134,7 +135,7 @@ public class Main
 |   | 1-8 |  |  |
 
 ## Known issues
-* Calling "QuitGame" from post match stats screen results in looping background music (although there's no reason to launch the game from there anyway).
+* Calling "QuitGame" or other functions that change the game state from post match stats screen results in looping background music (although there's no reason to do any of that from there anyway).
 * Starting a "Defend the Wonder" match doesn't always work.
 
 ## Dependencies
