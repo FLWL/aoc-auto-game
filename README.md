@@ -33,6 +33,7 @@ autogame.call('SetPlayerComputer', 1, "Barbarian")    # put the Barbarian AI int
 autogame.call('SetPlayerComputer', 2, "AT_Empire")    # and AT_Empire into slot 2
 
 autogame.call('SetRunFullSpeed', True)                # run the game logic as fast as possible (experimental)
+autogame.call('SetRunUnfocused', True)                # allow the game to run while minimized
 autogame.call('StartGame')                            # start the match
 
 while autogame.call('GetGameInProgress'):             # wait until the game has finished
