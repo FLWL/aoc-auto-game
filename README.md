@@ -5,6 +5,7 @@ An API for programmatically starting Age of Empires II: The Conquerors matches w
 * Direct C++ API (library exports)
 * msgpack-rpc based API that is callable from many languages, including Python, Java and C++
 * Change any game setting available in the in-game lobby programmatically
+* Run games faster than real-time (hours long matches can be played in minutes) (experimental)
 * Allow a single-player match to run even after minimizing the game
 * Launch games with desired settings
 * Determine when a match ends
@@ -31,6 +32,7 @@ autogame.call('SetGameMapType', 24)                   # choose a random map
 autogame.call('SetPlayerComputer', 1, "Barbarian")    # put the Barbarian AI into player slot 1
 autogame.call('SetPlayerComputer', 2, "AT_Empire")    # and AT_Empire into slot 2
 
+autogame.call('SetRunFullSpeed', True)                # run the game logic as fast as possible (experimental)
 autogame.call('StartGame')                            # start the match
 
 while autogame.call('GetGameInProgress'):             # wait until the game has finished
@@ -88,6 +90,7 @@ public class Main
 |  **QuitGame** |  |  | Exits the match. |
 |  **GetApiVersion** |  |  | Returns the aoc-auto-game API version as a float. |
 |  **SetRunUnfocused** | **bool RunUnfocused** |  | Whether to allow the game logic to continue running after the window has been minimized. |
+|  **SetRunFullSpeed** | **bool FullSpeed** |  | Whether to run the game logic as fast as possible. |
 |  **SetGameType** | **int Type** |  | Sets the type of the game. |
 |   | 0 - Random Map<br/>1 - Regicide<br/>2 - Death Match<br/>3 - Scenario<br/>5 - King of the Hill<br/>6 - Wonder Race<br/>7 - Defend the Wonder<br/>8 - Turbo Random Map |  |  |
 |  **SetGameScenarioName** | **string ScenarioName** |  | Scenario map name. Only used if GameType is set to 3. |
