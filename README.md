@@ -98,7 +98,7 @@ public class Main
 |  **SetGameScenarioName** | **string ScenarioName** |  | Scenario map name. Only used if GameType is set to 3. |
 |   | "test_scenario" |  |  |
 |  **SetGameMapType** | **int MapType** |  | Sets the location of the random map. |
-|   | 9 - Arabia<br/><br/>10 - Archipelago<br/><br/>11 - Baltic<br/><br/>12 - Black forest<br/><br/>13 - Coastal<br/><br/>14 - Continental<br/><br/>15 - Crater Lake<br/><br/>16 - Fortress<br/><br/>17 - Gold Rush<br/><br/>18 - Highland<br/><br/>19 - Islands<br/><br/>20 - Mediterranean<br/><br/>21 - Migration<br/><br/>22 - Rivers<br/><br/>23 - Team Islands<br/><br/>24 - Random Map<br/><br/>25 - Scandinavia<br/><br/>26 - Mongolia<br/><br/>27 - Yucatan<br/><br/>28 - Salt marsh<br/><br/>29 - Arena<br/><br/>31 - Oasis<br/><br/>32 - Ghost Lake<br/><br/>33 - Nomad<br/><br/>34 - Iberia<br/><br/>35 - Britain<br/><br/>36 - Mideast<br/><br/>37 - Texas<br/><br/>38 - Italy<br/><br/>39 - Central America<br/><br/>40 - France<br/><br/>41 - Norse Lands<br/><br/>42 - Sea of Japan (East Sea)<br/><br/>43 - Byzantium<br/><br/>45 - Random Land Map<br/><br/>47 - Random Real World Map<br/><br/>48 - Blind Random<br/><br/>49 - Conventional Random Map |  |  |
+|   | 9 - Arabia<br/>10 - Archipelago<br/>11 - Baltic<br/>12 - Black forest<br/>13 - Coastal<br/>14 - Continental<br/>15 - Crater Lake<br/>16 - Fortress<br/>17 - Gold Rush<br/>18 - Highland<br/>19 - Islands<br/>20 - Mediterranean<br/>21 - Migration<br/>22 - Rivers<br/>23 - Team Islands<br/>24 - Random Map<br/>25 - Scandinavia<br/>26 - Mongolia<br/>27 - Yucatan<br/>28 - Salt marsh<br/>29 - Arena<br/>31 - Oasis<br/>32 - Ghost Lake<br/>33 - Nomad<br/>34 - Iberia<br/>35 - Britain<br/>36 - Mideast<br/>37 - Texas<br/>38 - Italy<br/>39 - Central America<br/>40 - France<br/>41 - Norse Lands<br/>42 - Sea of Japan (East Sea)<br/>43 - Byzantium<br/>45 - Random Land Map<br/>47 - Random Real World Map<br/>48 - Blind Random<br/>49 - Conventional Random Map |  |  |
 |  **SetGameMapSize** | **int MapSize** |  | Random map size. |
 |   | 0 - Tiny<br/>1 - Small<br/>2 - Medium<br/>3 - Normal<br/>4 - Large<br/>5 - Giant |  |  |
 |  **SetGameDifficulty** | **int Difficulty** |  | Difficulty of the game. |
@@ -124,7 +124,7 @@ public class Main
 |  **SetPlayerClosed** | **int PlayerNumber** |  | Removes a player from a specific slot and marks it as closed. |
 |   | 1-8 |  |  |
 |  **SetPlayerCivilization** | **int PlayerNumber** | **int Civilization** | Set the player's civilization. |
-|   | 1-8 | 1 - Britons<br/><br/>2 - Franks<br/><br/>3 - Goths<br/><br/>4 - Teutons<br/><br/>5 - Japanese<br/><br/>6 - Chinese<br/><br/>7 - Byzantine<br/><br/>8 - Persians<br/><br/>9 - Saracens<br/><br/>10 - Turks<br/><br/>11 - Vikings<br/><br/>12 - Mongols<br/><br/>13 - Celts<br/><br/>14 - Spanish<br/><br/>15 - Aztec<br/><br/>16 - Mayan<br/><br/>17 - Huns<br/><br/>18 - Koreans<br/><br/>19 - Random<br/><br/>30 - Random 2 |  |
+|   | 1-8 | 1 - Britons<br/>2 - Franks<br/>3 - Goths<br/>4 - Teutons<br/>5 - Japanese<br/>6 - Chinese<br/>7 - Byzantine<br/>8 - Persians<br/>9 - Saracens<br/>10 - Turks<br/>11 - Vikings<br/>12 - Mongols<br/>13 - Celts<br/>14 - Spanish<br/>15 - Aztec<br/>16 - Mayan<br/>17 - Huns<br/>18 - Koreans<br/>19 - Random<br/>30 - Random 2 |  |
 |  **SetPlayerColor** | **int PlayerNumber** | **int Color** | Set color of the player's units and buildings. |
 |   | 1-8 | 1-8 |  |
 |  **SetPlayerTeam** | **int PlayerNumber** | **int Team** | Set which team the player belongs to. |
