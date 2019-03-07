@@ -134,7 +134,8 @@ public class Main
 |   | 1-8 |  |  |
 
 ## Known issues
-* Calling "QuitGame" from post match stats screen results in looping background music.
+* Calling "QuitGame" from post match stats screen results in looping background music (although there's no reason to launch the game from there anyway).
+* Starting a "Defend the Wonder" match doesn't always work.
 
 ## Dependencies
 * Microsoft Detours - https://github.com/Microsoft/Detours
