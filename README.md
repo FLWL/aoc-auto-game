@@ -141,3 +141,6 @@ public class Main
 ## Dependencies
 * Microsoft Detours - https://github.com/Microsoft/Detours
 * rpclib (with a minor change) - https://github.com/FLWL/rpclib
+
+## Credits
+* abductedPlatypus for the game speedup offset
