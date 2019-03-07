@@ -128,7 +128,7 @@ public class Main
 |  **SetPlayerColor** | **int PlayerNumber** | **int Color** | Set color of the player's units and buildings. |
 |   | 1-8 | 1-8 |  |
 |  **SetPlayerTeam** | **int PlayerNumber** | **int Team** | Set which team the player belongs to. |
-|   | 1-8 | 0 - No team<br/>1-4 Teams |  |
+|   | 1-8 | 0 - No team<br/>1 - Team 1<br/>2 - Team 2<br/>3 - Team 3<br/>4 - Team 4<br/>5 - Random Team<br/> |  |
 |  **GetPlayerExists** | **int PlayerNumber** |  | Returns whether the player slot is taken. |
 |   | 1-8 |  |  |
 |  **GetPlayerAlive** | **int PlayerNumber** |  | Returns whether the player is alive in the game. |
