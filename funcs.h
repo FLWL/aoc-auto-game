@@ -2,7 +2,7 @@
 #include <list>
 #include <sstream>
 
-const float API_VERSION = 1.13f;
+const float API_VERSION = 1.14f;
 
 bool RunUnfocused = false;
 
