@@ -38,6 +38,7 @@ void CreateRpcServer()
 	srv->bind("GetGameInProgress", &RpcFuncs::GetGameInProgress);
 	srv->bind("GetWinningPlayer", &RpcFuncs::GetWinningPlayer);
 	srv->bind("GetWinningPlayers", &RpcFuncs::GetWinningPlayers);
+	srv->bind("RestartGame", &RpcFuncs::RestartGame);
 	srv->bind("QuitGame", &RpcFuncs::QuitGame);
 	srv->bind("GetApiVersion", &RpcFuncs::GetApiVersion);
 	srv->bind("SetRunUnfocused", &RpcFuncs::SetRunUnfocused);
@@ -54,7 +55,7 @@ void CreateRpcServer()
 	srv->bind("SetGameStartingAge", &RpcFuncs::SetGameStartingAge);
 	srv->bind("SetGameVictoryType", &RpcFuncs::SetGameVictoryType);
 	srv->bind("SetGameTeamsTogether", &RpcFuncs::SetGameTeamsTogether);
-	srv->bind("SetGameLockTeams", &RpcFuncs::SetGameLockTeams);
+	srv->bind("SetGameTeamsLocked", &RpcFuncs::SetGameTeamsLocked);
 	srv->bind("SetGameAllTechs", &RpcFuncs::SetGameAllTechs);
 	srv->bind("SetGameRecorded", &RpcFuncs::SetGameRecorded);
 

@@ -30,7 +30,9 @@ namespace GameStructs
 		ME_VIEWONLY = 0x6,
 	};
 
+	/* Game speedup offset by abductedPlatypus */
 	bool *DoFixedUpdate = (bool*)0x791208;
+
 	Game* GamePointer = *(Game**)0x7912A0;
 	CommunicationsHandler* CommPointer = *(CommunicationsHandler**)0x791200;
 }
@@ -80,6 +82,8 @@ namespace GameFuncs
 		// General funcs
 		int(__thiscall* _StartGame)(GameStructs::Game* This, bool bSkipStartupScreens) = (int(__thiscall*)(GameStructs::Game*, bool))0x4420D0;
 		
+		void(__thiscall* _RestartGame)(GameStructs::Game* This) = (void(__thiscall*)(GameStructs::Game*))0x43F660;
+		
 		int(__thiscall* _QuitGame)(GameStructs::Game* This) = (int(__thiscall*)(GameStructs::Game*))0x43F460;
 		
 		// Game funcs
@@ -107,6 +111,8 @@ namespace GameFuncs
 		
 		// Player funcs
 		void(__thiscall* _SetComputerAIFile)(GameStructs::Game* This, int PlayerNum, const char* AIFile) = (void(__thiscall*)(GameStructs::Game*, int, const char*))0x445970;
+		
+		void(__thiscall* _SetComputerName)(GameStructs::Game* This, int PlayerNum, const char* Name) = (void(__thiscall*)(GameStructs::Game*, int, const char*))0x445930;
 		
 		void(__thiscall* _SetCivilization)(GameStructs::Game* This, int PlayerNum, int Civilization) = (void(__thiscall*)(GameStructs::Game*, int, int))0x445890;
 		
@@ -190,9 +196,9 @@ namespace RpcFuncs
 		GameFuncs::TribeGame::_SetVictoryType(GameStructs::GamePointer, VictoryType, VictoryValue);
 	}
 
-	void SetGameLockTeams(bool LockTeams)
+	void SetGameTeamsLocked(bool Locked)
 	{
-		GameFuncs::BaseGame::_GameTeamsLocked(GameStructs::GamePointer, LockTeams);
+		GameFuncs::BaseGame::_GameTeamsLocked(GameStructs::GamePointer, Locked);
 	}
 
 	void SetGameAllTechs(bool AllTechs)
@@ -215,6 +221,11 @@ namespace RpcFuncs
 	{
 		GameFuncs::CommHandler::_SetPlayerHumanity(GameStructs::CommPointer, PlayerNumber, GameStructs::PlayerHumanity::ME_COMPUTER);
 		GameFuncs::TribeGame::_SetComputerAIFile(GameStructs::GamePointer, PlayerNumber - 1, AIFile.c_str());
+	}
+
+	void SetPlayerComputerName(int PlayerNumber, const std::string& Name)
+	{
+		GameFuncs::TribeGame::_SetComputerName(GameStructs::GamePointer, PlayerNumber, Name.c_str());
 	}
 
 	void SetPlayerClosed(int PlayerNumber)
@@ -273,38 +284,6 @@ namespace RpcFuncs
 		return WinningPlayers;
 	}
 
-	// General funcs
-	void ResetGameSettings()
-	{
-		// Reset game settings
-		SetGameMultiPlayer(false);
-		SetGameType(0);
-		SetGameScenarioName("");
-		SetGameMapType(9);
-		SetGameMapSize(1);
-		SetGameDifficulty(3);
-		SetGameStartingResources(0);
-		SetGamePopulationLimit(200);
-		SetGameRevealMap(0);
-		SetGameStartingAge(2);
-		SetGameVictoryType(0, 0);
-		SetGameTeamsTogether(true);
-		SetGameLockTeams(false);
-		SetGameAllTechs(false);
-		SetGameRecorded(false);
-
-		// Reset players' properties
-		SetPlayerHuman(1);
-		SetPlayerComputer(2, "");
-		for (int i = 1; i <= 8; i++)
-		{
-			if (i >= 3) SetPlayerClosed(i);
-			SetPlayerCivilization(i, 30);
-			SetPlayerColor(i, i);
-			SetPlayerTeam(i, 0);
-		}
-	}
-
 	bool GetGameInProgress()
 	{
 		int ProgMode = GameStructs::GamePointer->prog_mode;
@@ -334,10 +313,15 @@ namespace RpcFuncs
 	{
 		GameFuncs::TribeGame::_QuitGame(GameStructs::GamePointer);
 	}
+	
+	bool GetWorldLoaded()
+	{
+		return GetGameInProgress() || GetGameOver() || GetGameStatsScreen();
+	}
 
 	bool StartGame()
 	{
-		if (GetGameInProgress() || GetGameOver() || GetGameStatsScreen())
+		if (GetWorldLoaded())
 			QuitGame();
 		
 		int NumPlayers = 0;
@@ -354,6 +338,60 @@ namespace RpcFuncs
 		bool LaunchResult = GameFuncs::TribeMPSetupScreen::_LaunchGame(DummyMPSetupScreen);
 		delete DummyMPSetupScreen;
 		return LaunchResult;
+	}
+
+	void RestartGame()
+	{
+		if (GetWorldLoaded())
+		{
+			GameFuncs::TribeGame::_RestartGame(GameStructs::GamePointer);
+		}
+	}
+
+	// General funcs
+	void ResetGameSettings()
+	{
+		// Quiting the game changes some of the settings, so in order to reset them
+		// we need to go to the main menu
+		if (GetWorldLoaded())
+			QuitGame();
+
+		// Reset game settings
+		SetGameMultiPlayer(false);
+		SetGameType(0);
+		SetGameScenarioName("");
+		SetGameMapType(9);
+		SetGameMapSize(1);
+		SetGameDifficulty(3);
+		SetGameStartingResources(0);
+		SetGamePopulationLimit(200);
+		SetGameRevealMap(0);
+		SetGameStartingAge(2);
+		SetGameVictoryType(0, 0);
+		SetGameTeamsTogether(true);
+		SetGameTeamsLocked(false);
+		SetGameAllTechs(false);
+		SetGameRecorded(false);
+
+		// Reset players' properties
+		for (int i = 1; i <= 8; i++)
+		{
+			if (i == 1)
+			{
+				SetPlayerHuman(i);
+			}
+			else
+			{
+				SetPlayerComputer(i, "");
+				if (i >= 3)
+					SetPlayerClosed(i);
+			}
+
+			SetPlayerComputerName(i, "");
+			SetPlayerCivilization(i, 30);
+			SetPlayerColor(i, i);
+			SetPlayerTeam(i, 0);
+		}
 	}
 
 	const float GetApiVersion()

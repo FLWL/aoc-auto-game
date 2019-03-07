@@ -5,6 +5,7 @@ EXPORTS
 	GetGameInProgress
 	GetWinningPlayer
 	GetWinningPlayers
+	RestartGame
 	QuitGame
 	GetApiVersion
 	SetRunUnfocused
@@ -20,7 +21,7 @@ EXPORTS
 	SetGameStartingAge
 	SetGameVictoryType
 	SetGameTeamsTogether
-	SetGameLockTeams
+	SetGameTeamsLocked
 	SetGameAllTechs
 	SetGameRecorded
 	SetPlayerHuman
