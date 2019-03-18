@@ -16,7 +16,8 @@ for aoc_proc in aoc_procs: aoc_proc.kill()
 
 # launch aoc and wait for it to init
 aoc_proc = subprocess.Popen(aoc_path)
-time.sleep(4)
+# to launch the rpc server with another port, it could be launched like this:
+# aoc_proc = subprocess.Popen(aoc_path + " -autogameport 64721")
 
 # write dll path into aoc memory
 aoc_handle = windll.kernel32.OpenProcess(0x1FFFFF, False, aoc_proc.pid) # PROCESS_ALL_ACCESS

@@ -201,9 +201,9 @@ namespace RpcFuncs
 		GameFuncs::TribeGame::_SetMapSize(GameStructs::GetGamePointer(), MapSize);
 	}
 
-	void SetGameMapSizeDirectly(int x, int y, int z)
+	void SetGameMapSizeDirectly(int x, int y)
 	{
-		GameFuncs::BaseGame::_SetMapSize(GameStructs::GetGamePointer(), x, y, z);
+		GameFuncs::BaseGame::_SetMapSize(GameStructs::GetGamePointer(), x, y, 8);
 	}
 
 	void SetGameDifficulty(int Difficulty)
