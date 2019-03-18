@@ -11,6 +11,7 @@ An API for programmatically starting Age of Empires II: The Conquerors matches w
 * Determine when a match ends
 * Determine the winning players
 * Restart or exit from a match
+* Run multiple matches simultaneously
 
 ## Usage
 1. Grab the release or compile the DLL yourself with the dependencies listed at the bottom of this page
@@ -92,21 +93,25 @@ public class Main
 |  **ResetGameSettings** |  |  | Reset all game settings and players to their valid default state. This also quits from any ongoing game, since changing settings during the game does not completely work. |
 |  **StartGame** |  |  | Start the game with previously specified settings. |
 |  **GetGameInProgress** |  |  | Whether a game is ongoing. Returns a boolean value. |
+|  **GetGameTime** |  |  | Returns the amount of in-game seconds since the match start. |
 |  **GetWinningPlayer** |  |  | Returns the first winning player number as an integer. |
 |  **GetWinningPlayers** |  |  | Returns all winning players as a list. |
 |  **RestartGame** |  |  | Restart the game if called while the game world has been loaded. |
 |  **QuitGame** |  |  | Exits the match. |
 |  **GetApiVersion** |  |  | Returns the aoc-auto-game API version as a float. |
 |  **SetRunUnfocused** | **bool RunUnfocused** |  | Whether to allow the game logic to continue running after the window has been minimized. |
+|  **SetWindowMinimized** | **bool Minimized** |  | Minimize or show the game window. |
+|  **SetUseInGameResolution** | **bool InGameResolution** |  | Change whether the game uses different resolutions for in-game and the main menu. If disabled, this is prevents the game from capturing the mouse when starting a game in the background. |
 |  **SetRunFullSpeed** | **bool FullSpeed** |  | Whether to run the game logic as fast as possible. |
 |  **SetGameType** | **int Type** |  | Sets the type of the game. |
 |   | 0 - Random Map<br/>1 - Regicide<br/>2 - Death Match<br/>3 - Scenario<br/>5 - King of the Hill<br/>6 - Wonder Race<br/>8 - Turbo Random Map |  |  |
 |  **SetGameScenarioName** | **string ScenarioName** |  | Scenario map name. Only used if GameType is set to 3. |
 |   | "test_scenario" |  |  |
 |  **SetGameMapType** | **int MapType** |  | Sets the location of the random map. |
-|   | 9 - Arabia<br/>10 - Archipelago<br/>11 - Baltic<br/>12 - Black Forest<br/>13 - Coastal<br/>14 - Continental<br/>15 - Crater Lake<br/>16 - Fortress<br/>17 - Gold Rush<br/>18 - Highland<br/>19 - Islands<br/>20 - Mediterranean<br/>21 - Migration<br/>22 - Rivers<br/>23 - Team Islands<br/>24 - Random Map<br/>25 - Scandinavia<br/>26 - Mongolia<br/>27 - Yucatan<br/>28 - Salt marsh<br/>29 - Arena<br/>31 - Oasis<br/>32 - Ghost Lake<br/>33 - Nomad<br/>34 - Iberia<br/>35 - Britain<br/>36 - Mideast<br/>37 - Texas<br/>38 - Italy<br/>39 - Central America<br/>40 - France<br/>41 - Norse Lands<br/>42 - Sea of Japan (East Sea)<br/>43 - Byzantium<br/>45 - Random Land Map<br/>47 - Random Real World Map<br/>48 - Blind Random<br/>49 - Conventional Random Map |  |  |
+|   | 9 - Arabia<br/>10 - Archipelago<br/>11 - Baltic<br/>12 - Black forest<br/>13 - Coastal<br/>14 - Continental<br/>15 - Crater Lake<br/>16 - Fortress<br/>17 - Gold Rush<br/>18 - Highland<br/>19 - Islands<br/>20 - Mediterranean<br/>21 - Migration<br/>22 - Rivers<br/>23 - Team Islands<br/>24 - Random Map<br/>25 - Scandinavia<br/>26 - Mongolia<br/>27 - Yucatan<br/>28 - Salt marsh<br/>29 - Arena<br/>31 - Oasis<br/>32 - Ghost Lake<br/>33 - Nomad<br/>34 - Iberia<br/>35 - Britain<br/>36 - Mideast<br/>37 - Texas<br/>38 - Italy<br/>39 - Central America<br/>40 - France<br/>41 - Norse Lands<br/>42 - Sea of Japan (East Sea)<br/>43 - Byzantium<br/>45 - Random Land Map<br/>47 - Random Real World Map<br/>48 - Blind Random<br/>49 - Conventional Random Map |  |  |
 |  **SetGameMapSize** | **int MapSize** |  | Random map size. |
 |   | 0 - Tiny<br/>1 - Small<br/>2 - Medium<br/>3 - Normal<br/>4 - Large<br/>5 - Giant |  |  |
+|  **SetGameMapSizeDirectly** | **int Width** | **int Height** | Set the size of the map directly in coordinates rather than predefined size values. |
 |  **SetGameDifficulty** | **int Difficulty** |  | Difficulty of the game. |
 |   | 0 - Hardest<br/>1 - Hard<br/>2 - Moderate<br/>3 - Standard<br/>4 - Easiest |  |  |
 |  **SetGameStartingResources** | **int StartingResources** |  | The amount of resources players start the game with. |
@@ -138,6 +143,8 @@ public class Main
 |  **GetPlayerExists** | **int PlayerNumber** |  | Returns whether the player slot is taken. |
 |   | 1-8 |  |  |
 |  **GetPlayerAlive** | **int PlayerNumber** |  | Returns whether the player is alive in the game. |
+|   | 1-8 |  |  |
+|  **GetPlayerScore** | **int PlayerNumber** |  | Returns the player's in-game score. |
 |   | 1-8 |  |  |
 
 ## Known issues
