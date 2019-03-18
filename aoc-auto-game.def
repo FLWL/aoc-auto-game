@@ -3,17 +3,21 @@ EXPORTS
 	ResetGameSettings
 	StartGame
 	GetGameInProgress
+	GetGameTime
 	GetWinningPlayer
 	GetWinningPlayers
 	RestartGame
 	QuitGame
 	GetApiVersion
 	SetRunUnfocused
+	SetWindowMinimized
+	SetUseInGameResolution
 	SetRunFullSpeed
 	SetGameType
 	SetGameScenarioName
 	SetGameMapType
 	SetGameMapSize
+	SetGameMapSizeDirectly
 	SetGameDifficulty
 	SetGameStartingResources
 	SetGamePopulationLimit
@@ -32,3 +36,4 @@ EXPORTS
 	SetPlayerTeam
 	GetPlayerExists
 	GetPlayerAlive
+	GetPlayerScore
