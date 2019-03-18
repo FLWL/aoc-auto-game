@@ -19,6 +19,8 @@ An API for programmatically starting Age of Empires II: The Conquerors matches w
 3. Connect with a msgpack-RPC client on address 127.0.0.1:64720
 4. Issue commands to the game to automate starting games
 
+To specify a custom port for the RPC server, start age2_x1 with -autogameport 64721 argument for example or any other port of your choosing. To run multiple instances of the game at the same time, start every age2_x1 process with the -multipleinstances argument.
+
 Check the example_scripts folder for how to do some of this.
 
 ## Python example
