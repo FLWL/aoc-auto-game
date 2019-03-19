@@ -5,7 +5,7 @@
 const float API_VERSION = 1.15f;
 
 bool RunUnfocused = false;
-bool UseInGameResolution = false;
+bool UseInGameResolution = true;
 bool RunMultipleInstances = false;
 
 namespace GameStructs
