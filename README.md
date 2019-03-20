@@ -21,6 +21,8 @@ An API for programmatically starting Age of Empires II: The Conquerors matches w
 
 To specify a custom port for the RPC server, start age2_x1 with `-autogameport 64721` argument for example or any other port of your choosing. To run multiple instances of the game at the same time, start every age2_x1 process with the `-multipleinstances` argument.
 
+Right now the best way to run games in the background is to use the SetRunUnfocused(True) to allow the game to continue running after it has been unfocused, and SetUseInGameResolution(False) to prevent the game from capturing the mouse while changing the resolution from the lobby to the in-game one. Optionally, the SetRunFullSpeed(True) can be used to run games at the maximum speed possible.
+
 Check the example_scripts folder for how to do some of this.
 
 ## Python example
